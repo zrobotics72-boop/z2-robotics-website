@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Z² Robotics | Robots that do real work</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #121c26;
+      --surface: #17202b;
+      --surface-deep: #0a141e;
+      --footer-bg: #050f19;
+      --text: #d9e3f2;
+      --muted: #dac2ae;
+      --orange: #f7981d;
+      --orange-light: #ffbc78;
+      --amber: #fcc025;
+      --teal: #5edbc1;
+      --coral: #ffb4ab;
+      --border: rgba(84, 68, 53, 0.4);
+      --border-soft: rgba(84, 68, 53, 0.2);
+      --bar-track: #2c3640;
+      --display: 'Chakra Petch', 'Trebuchet MS', sans-serif;
+      --body: 'IBM Plex Sans', 'Segoe UI', Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--body);
+      font-size: 14px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    img, svg { display: block; max-width: 100%; }
+    button, input { font: inherit; }
+
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 40px; }
+
+    /* ---------- Shared pieces ---------- */
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 9999px;
+      padding: 5px 13px;
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 1.1px;
+      text-transform: uppercase;
+    }
+    .dot { width: 8px; height: 8px; border-radius: 9999px; display: inline-block; flex-shrink: 0; }
+    .dot-orange { background: var(--orange); }
+    .dot-teal { background: var(--teal); }
+
+    .section-head { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 12px; max-width: 768px; margin: 0 auto; }
+    .section-head h2 {
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: 40px;
+      letter-spacing: -0.6px;
+      line-height: 1.2;
+      color: var(--text);
+    }
+    .section-head p { color: var(--muted); font-size: 14px; letter-spacing: 0.07px; }
+
+    .card {
+      position: relative;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 25px;
+      box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
+    }
+    .icon-box {
+      width: 48px; height: 48px;
+      border-radius: 8px;
+      background: var(--bg);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .icon-box svg { width: 22px; height: 22px; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+    .label-caps {
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 1.1px;
+      text-transform: uppercase;
+    }
+    .h3 { font-family: var(--display); font-weight: 600; font-size: 20px; line-height: 1.4; color: var(--text); }
+    .muted { color: var(--muted); }
+
+    .mini-widget {
+      background: var(--bg);
+      border: 1px solid var(--border-soft);
+      border-radius: 8px;
+      padding: 15px;
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    }
+    .mini-widget .left { display: flex; align-items: center; gap: 10px; min-width: 0; }
+    .mini-widget .title { font-size: 12px; color: var(--text); line-height: 1.35; }
+    .mini-widget .sub { font-size: 12px; line-height: 1.35; }
+    .mini-widget .tag { font-family: var(--display); font-weight: 700; font-size: 10px; white-space: nowrap; }
+    .mini-widget svg { width: 18px; height: 18px; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--orange);
+      color: #050f19;
+      border: 0;
+      border-radius: 9999px;
+      padding: 14px 32px;
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: 16px;
+      letter-spacing: 0.4px;
+      cursor: pointer;
+      box-shadow: 0 0 24px -4px rgba(247, 152, 29, 0.35);
+      transition: transform .15s ease, filter .15s ease;
+    }
+    .btn-primary:hover { filter: brightness(1.06); transform: translateY(-1px); }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(23, 32, 43, 0.8);
+      color: var(--text);
+      border: 1px solid rgba(84, 68, 53, 0.5);
+      border-radius: 9999px;
+      padding: 15px 29px;
+      font-weight: 600;
+      font-size: 16px;
+      letter-spacing: 0.16px;
+      transition: border-color .15s ease;
+    }
+    .btn-ghost:hover { border-color: var(--teal); }
+    .btn-ghost svg, .btn-primary svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* ---------- Header ---------- */
+    .site-header {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(18, 28, 38, 0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border-soft);
+    }
+    .header-inner { height: 80px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: flex; align-items: center; gap: 8px; }
+    .brand-mark {
+      width: 40px; height: 40px; border-radius: 8px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--display); font-weight: 700; font-size: 18px; color: var(--orange);
+    }
+    .brand-text { line-height: 1.2; }
+    .brand-name { font-family: var(--display); font-weight: 700; font-size: 16px; color: var(--text); }
+    .brand-sub { font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); }
+    .nav-links { display: flex; gap: 40px; }
+    .nav-links a { color: var(--muted); font-size: 14px; transition: color .15s ease; }
+    .nav-links a:hover { color: var(--text); }
+    .header-cta {
+      background: var(--orange); color: #050f19;
+      border-radius: 9999px; padding: 10px 20px;
+      font-family: var(--display); font-weight: 700; font-size: 13px; letter-spacing: 0.3px;
+      display: inline-flex; align-items: center; gap: 8px; white-space: nowrap;
+    }
+    .header-cta svg { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* ---------- Hero ---------- */
+    .hero { padding: 80px 0 40px; }
+    .hero-grid { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 48px; align-items: center; }
+    .hero-left { display: flex; flex-direction: column; gap: 24px; align-items: flex-start; }
+    .hero-left .eyebrow { color: var(--teal); }
+    .hero h1 {
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: clamp(38px, 4.4vw, 56px);
+      line-height: 1.14;
+      letter-spacing: -1.12px;
+      color: var(--text);
+    }
+    .hero h1 .accent {
+      background: linear-gradient(90deg, #f7981d 0%, #ffb86e 50%, #fcc025 100%);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .hero-sub { font-size: 18px; line-height: 1.625; color: var(--muted); max-width: 672px; }
+    .tagline {
+      background: rgba(33, 43, 53, 0.6);
+      border: 1px solid rgba(84, 68, 53, 0.3);
+      border-radius: 9999px;
+      padding: 15px 17px 11px;
+      font-family: var(--display); font-weight: 700; font-size: 11px; letter-spacing: 1.1px;
+      color: #ffdcbd;
+    }
+    .cta-row { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; padding-top: 8px; }
+    .trust-row {
+      display: flex; flex-wrap: wrap; gap: 24px; align-items: center;
+      border-top: 1px solid rgba(84, 68, 53, 0.3);
+      padding-top: 17px; width: 100%; font-size: 12px; color: var(--muted);
+    }
+    .trust-row span { display: inline-flex; align-items: center; gap: 8px; }
+    .trust-row svg { width: 14px; height: 14px; fill: none; stroke: var(--teal); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .trust-row svg.amber { stroke: var(--orange); }
+
+    .telemetry { border-color: rgba(84, 68, 53, 0.5); padding: 25px; display: flex; flex-direction: column; gap: 23px; overflow: hidden; }
+    .telemetry-header { display: flex; align-items: center; justify-content: space-between; padding-bottom: 17px; border-bottom: 1px solid rgba(84, 68, 53, 0.3); }
+    .telemetry-title { display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 13px; letter-spacing: 0.52px; color: var(--text); }
+    .pill-online {
+      background: rgba(94, 219, 193, 0.1); border: 1px solid rgba(94, 219, 193, 0.3);
+      border-radius: 9999px; padding: 3px 11px;
+      font-family: var(--display); font-weight: 700; font-size: 11px; letter-spacing: 1.1px; color: var(--teal);
+    }
+    .schematic { background: var(--bg); border: 1px solid var(--border-soft); border-radius: 8px; padding: 17px; display: flex; flex-direction: column; gap: 12px; }
+    .schematic-head { display: flex; align-items: center; justify-content: space-between; font-size: 12px; color: var(--muted); }
+    .schematic-head svg { width: 12px; height: 9px; stroke: var(--teal); fill: none; stroke-width: 1.8; }
+    .metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .metric { background: var(--surface); border: 1px solid var(--border-soft); border-radius: 6px; padding: 13px 13px 22px; text-align: center; }
+    .metric .num { font-family: var(--display); font-weight: 700; font-size: 20px; line-height: 1.4; }
+    .metric .lbl { font-size: 11px; color: var(--muted); line-height: 1.5; text-transform: uppercase; }
+    .bars { border-top: 1px solid var(--border-soft); padding-top: 17px; display: flex; flex-direction: column; gap: 8px; }
+    .bar-row { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); }
+    .bar-row b { font-weight: 600; }
+    .bar-track { height: 6px; background: var(--bar-track); border-radius: 9999px; overflow: hidden; margin-bottom: 8px; }
+    .bar-fill { height: 100%; border-radius: 9999px; }
+    .telemetry-foot { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); }
+    .telemetry-foot .r { color: var(--text); display: inline-flex; align-items: center; gap: 4px; }
+    .telemetry-foot svg { width: 9px; height: 9px; stroke: var(--teal); fill: none; stroke-width: 1.8; }
+
+    /* ---------- What we build ---------- */
+    .section { padding: 80px 0; }
+    .bento-top, .bento-bottom { display: grid; gap: 24px; }
+    .bento-top { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 40px; }
+    .bento-bottom { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 24px; }
+    .bento-card { display: flex; flex-direction: column; justify-content: space-between; gap: 24px; }
+    .bento-card .top { display: flex; flex-direction: column; gap: 4px; }
+    .bento-card .head-row { display: flex; align-items: center; justify-content: space-between; }
+    .bento-card .kicker { margin-top: 20px; }
+    .bento-card .h3 { margin-top: 8px; }
+    .bento-card p.desc { margin-top: 8px; color: var(--muted); font-size: 14px; line-height: 1.6; }
+    .tag-pill {
+      border-radius: 9999px; padding: 5px 11px;
+      font-family: var(--display); font-weight: 500; font-size: 11px; letter-spacing: 0.2px;
+      border: 1px solid; background: transparent; white-space: nowrap;
+    }
+    .c-teal { color: var(--teal); }
+    .c-orange { color: var(--orange); }
+    .c-amber { color: var(--amber); }
+    .c-coral { color: var(--coral); }
+    .ico-teal { border: 1px solid rgba(94, 219, 193, 0.3); color: var(--teal); }
+    .ico-orange { border: 1px solid rgba(247, 152, 29, 0.3); color: var(--orange); }
+    .ico-coral { border: 1px solid rgba(255, 180, 171, 0.3); color: var(--coral); }
+    .ico-amber { border: 1px solid rgba(252, 192, 37, 0.3); color: var(--amber); }
+    .bento-card.bottom .head-row { align-items: center; }
+
+    /* ---------- Intelligent automation ---------- */
+    .blocks { display: flex; flex-direction: column; gap: 64px; margin-top: 40px; }
+    .block {
+      position: relative;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 41px;
+      box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
+      display: flex; flex-direction: column; gap: 24px;
+    }
+    .block-head { display: flex; align-items: center; gap: 12px; }
+    .num-badge {
+      width: 36px; height: 36px; border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--display); font-weight: 700; font-size: 16px;
+      flex-shrink: 0;
+    }
+    .block-title { font-family: var(--display); font-weight: 600; font-size: 32px; letter-spacing: -0.32px; line-height: 1.25; color: var(--text); }
+    .block-desc { color: var(--muted); font-size: 14px; line-height: 1.6; max-width: 768px; }
+    .check-list { list-style: none; display: flex; flex-direction: column; gap: 12px; padding-top: 8px; }
+    .check-list li { display: flex; align-items: center; gap: 12px; font-size: 16px; color: var(--text); }
+    .check-list li::before {
+      content: ""; width: 20px; height: 20px; flex-shrink: 0;
+      background:
+        url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><circle cx='10' cy='10' r='9' fill='none' stroke='%235edbc1' stroke-opacity='0.6'/><path d='M6 10.2l2.6 2.6L14 7.4' fill='none' stroke='%235edbc1' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/></svg>") center / contain no-repeat;
+    }
+    .cat-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; padding-top: 8px; }
+    .cat-card {
+      background: var(--bg); border: 1px solid rgba(84, 68, 53, 0.3); border-radius: 12px;
+      padding: 21px; display: flex; flex-direction: column; gap: 12px; min-height: 166px;
+    }
+    .cat-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+    .cat-icon svg { width: 18px; height: 18px; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .cat-card h4 { font-weight: 600; font-size: 16px; letter-spacing: 0.16px; color: var(--text); }
+    .cat-card p { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+    .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; align-items: center; }
+    .split-left { display: flex; flex-direction: column; gap: 20px; }
+    .split-right { min-width: 0; }
+    .stock-panel {
+      background: var(--bg); border: 1px solid rgba(84, 68, 53, 0.3); border-radius: 12px;
+      padding: 25px; display: flex; flex-direction: column; gap: 16px;
+    }
+    .stock-head { display: flex; justify-content: space-between; align-items: center; padding-bottom: 13px; border-bottom: 1px solid var(--border-soft); font-size: 12px; color: var(--muted); }
+    .stock-head b { color: var(--orange); font-weight: 600; }
+    .stock-row { display: flex; flex-direction: column; gap: 4px; }
+    .stock-row .meta { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); }
+    .stock-row .meta b { color: var(--text); font-weight: 600; }
+    .stock-foot { display: flex; justify-content: space-between; align-items: center; padding-top: 13px; border-top: 1px solid var(--border-soft); font-size: 12px; color: var(--teal); }
+    .stock-foot .lat { color: var(--teal); }
+    .stock-foot .dotline { display: inline-flex; align-items: center; gap: 6px; }
+
+    .eas-panel {
+      background: var(--bg); border: 1px solid rgba(84, 68, 53, 0.3); border-radius: 12px;
+      padding: 25px; display: flex; flex-direction: column; gap: 16px;
+    }
+    .eas-title { text-align: center; font-weight: 600; font-size: 12px; letter-spacing: 0.6px; color: var(--coral); text-transform: uppercase; }
+    .eas-gate {
+      background: rgba(23, 32, 43, 0.6); border: 1px solid var(--border-soft); border-radius: 8px;
+      padding: 25px 0; display: flex; align-items: center; justify-content: center; gap: 22px; overflow: hidden;
+    }
+    .eas-post {
+      width: 36px; height: 112px; background: #212b35; border: 2px solid rgba(255, 180, 171, 0.5); border-radius: 4px;
+      display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 10px 2px;
+    }
+    .eas-post i { width: 8px; height: 8px; border-radius: 9999px; background: var(--coral); display: block; }
+    .eas-post span { writing-mode: vertical-rl; transform: rotate(180deg); font-size: 9px; color: var(--muted); letter-spacing: 0.5px; }
+    .eas-center { display: flex; flex-direction: column; align-items: center; gap: 4px; text-align: center; }
+    .eas-center svg { width: 24px; height: 32px; fill: none; stroke: var(--coral); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .eas-center .p { font-size: 12px; color: var(--text); }
+    .eas-center .q { font-family: var(--display); font-weight: 500; font-size: 10px; color: var(--teal); }
+    .tag-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+    .tag-grid div { background: var(--surface); border: 1px solid var(--border-soft); border-radius: 4px; padding: 9px; text-align: center; font-size: 12px; color: var(--text); }
+
+    .mirror-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .mirror {
+      background: var(--bg); border: 1px solid rgba(252, 192, 37, 0.3); border-radius: 12px;
+      padding: 17px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px;
+    }
+    .mirror.teal { border-color: rgba(94, 219, 193, 0.3); }
+    .mirror .lbl { font-size: 12px; color: var(--muted); }
+    .mirror .chip {
+      border: 1px solid rgba(252, 192, 37, 0.4); background: rgba(252, 192, 37, 0.15);
+      border-radius: 4px; padding: 5px 13px; font-family: var(--display); font-weight: 700; font-size: 14px; color: var(--amber);
+    }
+    .mirror.teal .chip { border-color: rgba(94, 219, 193, 0.4); background: rgba(94, 219, 193, 0.15); color: var(--teal); font-size: 12px; padding: 5px 9px; }
+    .mirror .sub { font-size: 11px; color: var(--muted); }
+    .mirror svg { width: 26px; height: 22px; fill: none; stroke: var(--amber); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .mirror.teal svg { stroke: var(--teal); }
+
+    /* ---------- How we work ---------- */
+    .steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; margin-top: 40px; }
+    .step { display: flex; flex-direction: column; justify-content: space-between; gap: 22px; }
+    .step-top { display: flex; align-items: center; justify-content: space-between; }
+    .step-num {
+      width: 32px; height: 32px; border-radius: 9999px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--display); font-weight: 700; font-size: 14px;
+    }
+    .step-top svg { width: 20px; height: 20px; fill: none; stroke: var(--text); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+    .step h3 { font-family: var(--display); font-weight: 600; font-size: 20px; line-height: 1.4; color: var(--text); }
+    .step p { color: var(--muted); font-size: 14px; line-height: 1.625; margin-top: 8px; }
+    .step .stage { font-size: 12px; padding-top: 24px; }
+
+    /* ---------- Lead form ---------- */
+    .lead-wrap { padding: 40px 0 80px; }
+    .lead {
+      position: relative; overflow: hidden;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 57px;
+      box-shadow: inset 0 1px 0 1px rgba(255, 255, 255, 0.08);
+    }
+    .lead::before {
+      content: ""; position: absolute; top: -96px; right: -96px; width: 320px; height: 320px; border-radius: 9999px;
+      background: rgba(247, 152, 29, 0.15); filter: blur(32px); pointer-events: none;
+    }
+    .lead-grid { position: relative; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 48px; align-items: start; }
+    .lead-left { display: flex; flex-direction: column; gap: 24px; }
+    .lead-left h2 { font-family: var(--display); font-weight: 600; font-size: 40px; letter-spacing: -0.6px; line-height: 1.2; color: var(--text); }
+    .lead-left .intro { font-size: 14px; line-height: 1.6; color: var(--muted); }
+    .contact-panel { display: flex; flex-direction: column; gap: 16px; padding-top: 32px; }
+    .contact-panel .caps { font-family: var(--display); font-weight: 700; font-size: 11px; letter-spacing: 1.1px; text-transform: uppercase; color: var(--muted); }
+    .pills { display: flex; flex-wrap: wrap; gap: 12px; }
+    .pill {
+      background: var(--bg); border: 1px solid var(--border); border-radius: 9999px;
+      padding: 11px 17px; display: inline-flex; align-items: center; gap: 10px; font-size: 14px; color: var(--text);
+      transition: border-color .15s ease;
+    }
+    .pill:hover { border-color: var(--teal); }
+    .pill svg { width: 12px; height: 12px; fill: none; stroke: var(--orange); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+    .pill.mail svg { stroke: var(--teal); }
+    .loc { display: flex; align-items: center; gap: 8px; padding-top: 8px; color: var(--muted); font-size: 14px; }
+    .loc svg { width: 11px; height: 13px; fill: none; stroke: var(--amber); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+    .form-card {
+      background: var(--bg); border: 1px solid var(--border); border-radius: 16px; padding: 33px;
+    }
+    form.lead-form { display: flex; flex-direction: column; gap: 20px; }
+    .field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+    .field label { font-family: var(--display); font-weight: 700; font-size: 11px; letter-spacing: 0.55px; text-transform: uppercase; color: var(--muted); }
+    .field input {
+      background: var(--surface-deep); border: 1px solid var(--border); border-radius: 8px;
+      padding: 14px 17px; color: var(--text); font-size: 14px; width: 100%;
+      transition: border-color .15s ease, box-shadow .15s ease;
+    }
+    .field input::placeholder { color: rgba(218, 194, 174, 0.4); }
+    .field input:focus { outline: none; border-color: var(--orange); box-shadow: 0 0 0 3px rgba(247, 152, 29, 0.15); }
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .submit-btn {
+      margin-top: 4px;
+      background: var(--orange); color: #050f19; border: 0; border-radius: 12px;
+      padding: 16px; font-family: var(--display); font-weight: 700; font-size: 16px; letter-spacing: 0.8px; text-transform: uppercase;
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer;
+      box-shadow: 0 0 24px -4px rgba(247, 152, 29, 0.35);
+      transition: filter .15s ease, transform .15s ease, opacity .15s ease;
+    }
+    .submit-btn:hover { filter: brightness(1.05); }
+    .submit-btn:disabled { opacity: .6; cursor: not-allowed; transform: none; }
+    .submit-btn svg { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+    .form-status { min-height: 20px; text-align: center; font-size: 13px; color: var(--muted); }
+    .form-status.ok { color: var(--teal); }
+    .form-status.err { color: var(--coral); }
+    .trust-note { text-align: center; font-size: 12px; color: var(--muted); padding-top: 4px; }
+
+    /* ---------- Footer ---------- */
+    .site-footer { background: var(--footer-bg); border-top: 1px solid var(--border-soft); padding: 40px 0 36px; }
+    .foot-top { display: flex; justify-content: space-between; gap: 24px; align-items: flex-start; flex-wrap: wrap; }
+    .foot-brand h3 { font-family: var(--display); font-weight: 700; font-size: 20px; color: var(--text); }
+    .foot-brand p { font-size: 13px; color: var(--muted); margin-top: 8px; }
+    .foot-brand .tag { margin-top: 12px; font-family: var(--display); font-weight: 700; font-size: 11px; letter-spacing: 1.1px; color: var(--orange-light); }
+    .foot-links { display: flex; gap: 28px; flex-wrap: wrap; padding-top: 28px; }
+    .foot-links a { font-size: 13px; color: var(--muted); transition: color .15s ease; }
+    .foot-links a:hover { color: var(--text); }
+    .foot-divider { height: 1px; background: var(--border-soft); margin: 24px 0 20px; }
+    .foot-bottom { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; font-size: 12px; color: var(--muted); }
+    .foot-bottom .status { display: inline-flex; align-items: center; gap: 16px; }
+    .foot-bottom .status span { display: inline-flex; align-items: center; gap: 6px; }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 1100px) {
+      .nav-links { gap: 24px; }
+      .cat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 960px) {
+      .hero-grid, .split, .lead-grid { grid-template-columns: 1fr; }
+      .bento-top { grid-template-columns: 1fr; }
+      .bento-bottom { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .lead { padding: 36px 28px; }
+      .block { padding: 28px; }
+      .section-head h2, .lead-left h2 { font-size: 32px; }
+      .block-title { font-size: 26px; }
+    }
+    @media (max-width: 640px) {
+      .container { padding: 0 20px; }
+      .header-inner { height: 68px; }
+      .header-cta { padding: 9px 14px; font-size: 12px; }
+      .hero { padding: 48px 0 24px; }
+      .section { padding: 56px 0; }
+      .cta-row .btn-primary, .cta-row .btn-ghost { width: 100%; justify-content: center; }
+      .cat-grid, .steps { grid-template-columns: 1fr; }
+      .field-row { grid-template-columns: 1fr; }
+      .metrics { grid-template-columns: 1fr 1fr 1fr; }
+      .block { padding: 22px; }
+      .lead { padding: 26px 18px; }
+      .form-card { padding: 22px 18px; }
+      .mini-widget { flex-direction: column; align-items: flex-start; }
+      .mirror-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============ 1. STICKY HEADER ============ -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#top" class="brand">
+        <span class="brand-mark">Z²</span>
+        <span class="brand-text">
+          <span class="brand-name">Z² Robotics</span><br />
+          <span class="brand-sub">Automated Systems</span>
+        </span>
+      </a>
+      <nav class="nav-links">
+        <a href="#what-we-build">What we build</a>
+        <a href="#solutions">Solutions</a>
+        <a href="#how-we-work">How we work</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <a href="#contact" class="header-cta">
+        Start a Project
+        <svg viewBox="0 0 12 12"><path d="M2 6h8M7 3l3 3-3 3"/></svg>
+      </a>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- ============ 2. HERO ============ -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-left">
+          <div class="eyebrow">
+            <span class="dot dot-teal"></span>
+            <span class="label-caps" style="color: var(--teal);">Intelligent Automation Solutions</span>
+          </div>
+
+          <h1>Robots that do <span class="accent">real work.</span></h1>
+
+          <p class="hero-sub">
+            Z² Robotics is an automation and digital solutions company in Theni, Tamil Nadu.<br />
+            We build smart systems for homes, libraries, retail, hospitality, and logistics.
+          </p>
+
+          <div class="tagline">SMARTER SPACES • SAFER ASSETS • BETTER CONTROL</div>
+
+          <div class="cta-row">
+            <a href="#contact" class="btn-primary">
+              Start a project
+              <svg viewBox="0 0 12 12"><path d="M2 6h8M7 3l3 3-3 3"/></svg>
+            </a>
+            <a href="#how-we-work" class="btn-ghost">
+              See how we work
+              <svg viewBox="0 0 16 16" style="stroke: var(--teal);"><circle cx="8" cy="8" r="6"/><path d="M5.5 8.2l1.8 1.8L10.8 6.5"/></svg>
+            </a>
+          </div>
+
+          <div class="trust-row">
+            <span>
+              <svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="6"/><path d="M5.5 8.2l1.8 1.8L10.8 6.5"/></svg>
+              Theni Hub Engineering
+            </span>
+            <span>
+              <svg class="amber" viewBox="0 0 16 16"><path d="M9 1L3 9h4l-1 6 6-8H8z"/></svg>
+              Rapid Hardware Deployment
+            </span>
+          </div>
+        </div>
+
+        <!-- Telemetry card -->
+        <aside class="card telemetry">
+          <div class="telemetry-header">
+            <div class="telemetry-title">
+              <span class="dot dot-teal"></span>
+              UNIT-Z2 // TELEMETRY LINK
+            </div>
+            <span class="pill-online">ONLINE</span>
+          </div>
+
+          <div class="schematic">
+            <div class="schematic-head">
+              <span>DEPLOYMENT STATS // SOUTH INDIA</span>
+              <svg viewBox="0 0 12 9"><path d="M1 4.5a5 5 0 0 1 10 0M3 4.5a3 3 0 0 1 6 0"/></svg>
+            </div>
+
+            <div class="metrics">
+              <div class="metric">
+                <div class="num" style="color:#ffbc78;">99.8%</div>
+                <div class="lbl">System uptime</div>
+              </div>
+              <div class="metric">
+                <div class="num" style="color:var(--teal);">10x</div>
+                <div class="lbl">Inventory<br />speed</div>
+              </div>
+              <div class="metric">
+                <div class="num" style="color:var(--amber);">150+</div>
+                <div class="lbl">Spaces<br />enabled</div>
+              </div>
+            </div>
+
+            <div class="bars">
+              <div class="bar-row"><span>RFID accuracy rate</span><b style="color:var(--teal);">99.94%</b></div>
+              <div class="bar-track"><div class="bar-fill" style="width:98%; background:var(--teal);"></div></div>
+              <div class="bar-row"><span>Facility latency (Theni DC)</span><b style="color:var(--orange-light);">1.4ms</b></div>
+              <div class="bar-track"><div class="bar-fill" style="width:94%; background:var(--orange);"></div></div>
+            </div>
+          </div>
+
+          <div class="telemetry-foot">
+            <span>LOC: THENI, TAMIL NADU</span>
+            <span class="r">
+              <svg viewBox="0 0 12 12"><circle cx="6" cy="6" r="5"/><path d="M1 6h10M6 1c2 2 2 8 0 10M6 1c-2 2-2 8 0 10"/></svg>
+              HARDWARE MESH VER. 3.4
+            </span>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============ 3. WHAT WE BUILD ============ -->
+    <section class="section" id="what-we-build">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow" style="color: var(--orange);">
+            <span class="dot dot-orange"></span>
+            <span class="label-caps" style="color: var(--orange);">Core Capabilities</span>
+          </div>
+          <h2>What we build</h2>
+          <p>Five product lines for homes, libraries, retail, hospitality, logistics, and corporate spaces.</p>
+        </div>
+
+        <!-- Top row: 3 cards -->
+        <div class="bento-top">
+          <article class="card bento-card">
+            <div class="top">
+              <div class="icon-box ico-teal" style="border:1px solid rgba(94,219,193,0.3);">
+                <svg viewBox="0 0 24 24" style="stroke: var(--teal);"><path d="M4 8l8-4 8 4v8l-8 4-8-4z"/><path d="M4 8l8 4 8-4M12 12v8"/></svg>
+              </div>
+              <div class="kicker label-caps c-teal">Automated Workflow</div>
+              <h3 class="h3">Smart library automation</h3>
+              <p class="desc">RFID labels, handheld inventory scanners, self-checkout kiosks, and anti-theft security gates engineered for zero-friction borrow &amp; return.</p>
+            </div>
+            <div class="mini-widget">
+              <div class="left">
+                <svg viewBox="0 0 24 24" style="stroke: var(--teal);"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 8v8M10 8v8M14 8h1M17 8v8"/></svg>
+                <div>
+                  <div class="title">RFID Kiosk + EAS Gate</div>
+                  <div class="sub c-teal">Instant Batch Scans</div>
+                </div>
+              </div>
+              <span class="tag c-teal">READY</span>
+            </div>
+          </article>
+
+          <article class="card bento-card">
+            <div class="top">
+              <div class="icon-box ico-orange" style="border:1px solid rgba(247,152,29,0.3);">
+                <svg viewBox="0 0 24 24" style="stroke: var(--orange);"><path d="M4 20V10h6v10M14 20V6h6v14"/><path d="M2 20h20M10 6h4"/></svg>
+              </div>
+              <div class="kicker label-caps c-orange">Robotic Logistics</div>
+              <h3 class="h3">Industrial and retail robots</h3>
+              <p class="desc">Automated guided vehicles (AGVs), robotic arms, and humanoid robots designed to haul, sort, and assist across production floors.</p>
+            </div>
+            <div class="mini-widget">
+              <div class="left">
+                <svg viewBox="0 0 24 24" style="stroke: var(--orange);"><rect x="4" y="11" width="16" height="7" rx="2"/><circle cx="8" cy="19" r="1.5"/><circle cx="16" cy="19" r="1.5"/><path d="M12 11V6l4-2"/></svg>
+                <div>
+                  <div class="title">AGV Unit &amp; Arm-X</div>
+                  <div class="sub c-orange">Payload: 500kg</div>
+                </div>
+              </div>
+              <span class="tag c-orange">AUTONOMOUS</span>
+            </div>
+          </article>
+
+          <article class="card bento-card">
+            <div class="top">
+              <div class="icon-box ico-coral" style="border:1px solid rgba(255,180,171,0.3);">
+                <svg viewBox="0 0 24 24" style="stroke: var(--coral);"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3"/><circle cx="12" cy="12" r="3"/></svg>
+              </div>
+              <div class="kicker label-caps c-coral" style="color: var(--coral);">Retail Vision</div>
+              <h3 class="h3">AR try-on systems</h3>
+              <p class="desc">Augmented reality try-on for retail, so customers can see a product on themselves before buying with precision spatial body mapping.</p>
+            </div>
+            <div class="mini-widget">
+              <div class="left">
+                <svg viewBox="0 0 24 24" style="stroke: var(--coral);"><circle cx="12" cy="12" r="8"/><path d="M12 4v16M4 12h16"/></svg>
+                <div>
+                  <div class="title">Mirror Screen Mesh</div>
+                  <div class="sub" style="color: var(--coral);">99.1% Fit Confidence</div>
+                </div>
+              </div>
+              <span class="tag" style="color: var(--coral);">REAL-TIME</span>
+            </div>
+          </article>
+        </div>
+
+        <!-- Bottom row: 2 wide cards -->
+        <div class="bento-bottom">
+          <article class="card bento-card bottom">
+            <div class="top">
+              <div class="head-row">
+                <div class="icon-box ico-amber" style="border:1px solid rgba(252,192,37,0.3);">
+                  <svg viewBox="0 0 24 24" style="stroke: var(--amber);"><path d="M6 4h12l3 5-9 11L3 9z"/><path d="M3 9h18M9 4l3 16 3-16"/></svg>
+                </div>
+                <span class="tag-pill" style="color: var(--amber); border-color: rgba(252,192,37,0.3); background: rgba(252,192,37,0.1);">PRECISION SCANNING</span>
+              </div>
+              <div class="kicker label-caps c-amber">Inventory Intelligence</div>
+              <h3 class="h3">RFID stock management</h3>
+              <p class="desc">Fast, accurate stock counting built specifically for jewelry shops and smart retail. Scan full trays in seconds without manual item handling.</p>
+            </div>
+            <div class="mini-widget">
+              <div class="left">
+                <svg viewBox="0 0 24 24" style="stroke: var(--text);"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg>
+                <div>
+                  <div class="title">Jewelry Tray Sensor Tray-08</div>
+                  <div class="sub c-amber">300 Items Scanned in 1.8s</div>
+                </div>
+              </div>
+              <span class="tag muted">ZERO MISSES</span>
+            </div>
+          </article>
+
+          <article class="card bento-card bottom">
+            <div class="top">
+              <div class="head-row">
+                <div class="icon-box ico-teal" style="border:1px solid rgba(94,219,193,0.3);">
+                  <svg viewBox="0 0 24 24" style="stroke: var(--teal);"><path d="M3 11l9-7 9 7v9H3z"/><path d="M9 20v-6h6v6"/></svg>
+                </div>
+                <span class="tag-pill" style="color: var(--teal); border-color: rgba(94,219,193,0.3); background: rgba(94,219,193,0.1);">UNIFIED PLATFORM</span>
+              </div>
+              <div class="kicker label-caps c-teal">Ambient Living &amp; Safety</div>
+              <h3 class="h3">Smart home automation</h3>
+              <p class="desc">Control lights, switches, curtains, door locks, gates, and water tank pumps from one mobile app. Add sensors and alarms for safety, and set daily routines that run on their own.</p>
+            </div>
+            <div class="mini-widget">
+              <div class="left">
+                <svg viewBox="0 0 24 24" style="stroke: var(--teal);"><path d="M12 3c3 4 6 7 6 11a6 6 0 0 1-12 0c0-4 3-7 6-11z"/></svg>
+                <div>
+                  <div class="title">Auto-Water Pump &amp; Smart Gate Sync</div>
+                  <div class="sub c-teal">Routines Active // Autonomous</div>
+                </div>
+              </div>
+              <span class="tag c-teal">100% RELIABLE</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 4. INTELLIGENT AUTOMATION SOLUTIONS ============ -->
+    <section class="section" id="solutions" style="padding-top: 40px;">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow" style="color: var(--teal);">
+            <span class="dot dot-teal"></span>
+            <span class="label-caps" style="color: var(--teal);">End-to-End Deployments</span>
+          </div>
+          <h2>Intelligent Automation Solutions</h2>
+          <p>Where we automate: every kind of space, one smart platform.</p>
+        </div>
+
+        <div class="blocks">
+
+          <!-- Block 01 -->
+          <section class="block" style="border-color: rgba(94,219,193,0.2);">
+            <div class="block-head">
+              <div class="num-badge" style="color: var(--teal); background: rgba(94,219,193,0.1); border: 1px solid rgba(94,219,193,0.4);">01</div>
+              <h3 class="block-title">Smart Building &amp; Facility Automation</h3>
+            </div>
+            <p class="block-desc">Complete hardware-to-cloud mesh linking sensors, automated valves, gates, and energy distributors across commercial, municipal, and residential properties.</p>
+            <div class="cat-grid">
+              <div class="cat-card">
+                <div class="cat-icon" style="background: rgba(94,219,193,0.1); color: var(--teal);">
+                  <svg viewBox="0 0 24 24" style="stroke: var(--teal);"><path d="M3 11l9-7 9 7v9H3z"/><path d="M9 20v-6h6v6"/></svg>
+                </div>
+                <h4>Homes &amp; Stays</h4>
+                <p>Houses, Villas, Apartments, Hotels, Resorts, Rental Buildings &amp; Hostels.</p>
+              </div>
+              <div class="cat-card">
+                <div class="cat-icon" style="background: rgba(247,152,29,0.1); color: var(--orange);">
+                  <svg viewBox="0 0 24 24" style="stroke: var(--orange);"><path d="M3 21h18M5 21V8l7-4 7 4v13"/><path d="M12 11v4M10 13h4"/></svg>
+                </div>
+                <h4>Healthcare &amp; Education</h4>
+                <p>Hospitals, Healthcare Centres, Schools &amp; Educational Institutions.</p>
+              </div>
+              <div class="cat-card">
+                <div class="cat-icon" style="background: rgba(252,192,37,0.1); color: var(--amber);">
+                  <svg viewBox="0 0 24 24" style="stroke: var(--amber);"><rect x="3" y="7" width="18" height="13" rx="1"/><path d="M3 11h18M9 7V4h6v3"/></svg>
+                </div>
+                <h4>Commercial &amp; Retail</h4>
+                <p>Office Buildings, Shopping Malls, Retail Stores, Restaurants &amp; Hospitality.</p>
+              </div>
+              <div class="cat-card">
+                <div class="cat-icon" style="background: rgba(255,180,171,0.1); color: var(--coral);">
+                  <svg viewBox="0 0 24 24" style="stroke: var(--coral);"><path d="M3 20V9l9-5 9 5v11"/><path d="M7 20v-6h10v6M7 16h10"/></svg>
+                </div>
+                <h4>Industrial &amp; Storage</h4>
+                <p>Industrial Buildings, Factories, Warehouses &amp; Storage Facilities.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Block 02 -->
+          <section class="block" style="border-color: rgba(247,152,29,0.2);">
+            <div class="split">
+              <div class="split-left">
+                <div class="block-head">
+                  <div class="num-badge" style="color: var(--orange); background: rgba(247,152,29,0.1); border: 1px solid rgba(247,152,29,0.4);">02</div>
+                  <h3 class="block-title">Stock Management Automation</h3>
+                </div>
+                <p class="block-desc">Turn tedious manual counts into instantaneous automated reconciliation. Track inventory at the unit level with sub-millimeter precision.</p>
+                <ul class="check-list">
+                  <li>Real-time inventory tracking</li>
+                  <li>Automatic low-stock alerts &amp; reordering</li>
+                  <li>Barcode &amp; RFID scanning</li>
+                  <li>Accurate reports &amp; demand forecasting</li>
+                </ul>
+              </div>
+              <div class="split-right">
+                <div class="stock-panel">
+                  <div class="stock-head">
+                    <span>WAREHOUSE NODE // BAY 04</span>
+                    <b>128 in stock</b>
+                  </div>
+                  <div class="stock-row">
+                    <div class="meta"><span>SKU-992 // RETAIL GOLD</span><b>94%</b></div>
+                    <div class="bar-track"><div class="bar-fill" style="width:94%; background:var(--orange);"></div></div>
+                  </div>
+                  <div class="stock-row">
+                    <div class="meta"><span>SKU-481 // TEXTILE ROLL</span><b>82%</b></div>
+                    <div class="bar-track"><div class="bar-fill" style="width:82%; background:var(--teal);"></div></div>
+                  </div>
+                  <div class="stock-row">
+                    <div class="meta"><span>SKU-104 // HARDWARE RFID</span><b>65%</b></div>
+                    <div class="bar-track"><div class="bar-fill" style="width:65%; background:var(--amber);"></div></div>
+                  </div>
+                  <div class="stock-foot">
+                    <span class="dotline"><span class="dot dot-teal"></span>Auto-Sync Active</span>
+                    <span class="lat">Latency 0.8ms</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Block 03 -->
+          <section class="block" style="border-color: rgba(255,180,171,0.2);">
+            <div class="split">
+              <div class="split-right">
+                <div class="eas-panel">
+                  <div class="eas-title">EAS Active Frequency Perimeter</div>
+                  <div class="eas-gate">
+                    <div class="eas-post"><i></i><span>GATE A</span><i></i></div>
+                    <div class="eas-center">
+                      <svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0"/></svg>
+                      <div class="p">PULSE: 58 kHz</div>
+                      <div class="q">NO BLIND SPOTS</div>
+                    </div>
+                    <div class="eas-post"><i></i><span>GATE B</span><i></i></div>
+                  </div>
+                  <div class="tag-grid">
+                    <div>Hard Tags</div>
+                    <div>AM Labels</div>
+                    <div>RF Labels</div>
+                    <div>Jewellery Tags</div>
+                  </div>
+                </div>
+              </div>
+              <div class="split-left">
+                <div class="block-head">
+                  <div class="num-badge" style="color: var(--coral); background: rgba(255,180,171,0.1); border: 1px solid rgba(255,180,171,0.4);">03</div>
+                  <h3 class="block-title">Anti-Theft Solutions</h3>
+                </div>
+                <p class="block-desc">Protect your high-value inventory without compromising store aesthetics or smooth footfall. Discrete, uncompromised loss prevention.</p>
+                <ul class="check-list">
+                  <li>AM &amp; RF anti-theft (EAS) systems</li>
+                  <li>For jewellery, textile &amp; supermarkets</li>
+                  <li>Factories, warehouses &amp; more</li>
+                  <li>Various types of security tags</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <!-- Block 04 -->
+          <section class="block" style="border-color: rgba(252,192,37,0.2);">
+            <div class="split">
+              <div class="split-left">
+                <div class="block-head" style="align-items: center;">
+                  <div class="num-badge" style="color: var(--amber); background: rgba(252,192,37,0.1); border: 1px solid rgba(252,192,37,0.4);">04</div>
+                  <div>
+                    <h3 class="block-title">Smart Try-On + AI Sizing Mirrors</h3>
+                    <div class="label-caps" style="color: var(--amber); font-size: 11px; letter-spacing: 0.55px; margin-top: 6px;">For clothing and jewellery</div>
+                  </div>
+                </div>
+                <p class="block-desc">Transform dressing rooms and jewelry counters into interactive sales drivers. Eliminates try-on queues while driving up basket conversions.</p>
+                <ul class="check-list">
+                  <li>AI size suggestion in seconds</li>
+                  <li>Virtual try-on for outfits and jewellery</li>
+                  <li>Buy with confidence</li>
+                </ul>
+              </div>
+              <div class="split-right">
+                <div class="mirror-grid">
+                  <div class="mirror">
+                    <svg viewBox="0 0 24 24"><path d="M12 3l3 6h5l-4 4 2 6-6-4-6 4 2-6-4-4h5z"/></svg>
+                    <div class="lbl">CLOTHING AI</div>
+                    <div class="chip">AI SIZE M</div>
+                    <div class="sub">Torso Mesh 98% Match</div>
+                  </div>
+                  <div class="mirror teal">
+                    <svg viewBox="0 0 24 24"><path d="M12 3l1.8 4.2L18 9l-4.2 1.8L12 15l-1.8-4.2L6 9l4.2-1.8zM19 14l.9 2.1L22 17l-2.1.9L19 20l-.9-2.1L16 17l2.1-.9z"/></svg>
+                    <div class="lbl">JEWELLERY AR</div>
+                    <div class="chip">JEWELLERY TRY-ON</div>
+                    <div class="sub">Gold Choker &amp; Ring Overlay</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 5. HOW WE WORK ============ -->
+    <section class="section" id="how-we-work" style="padding-top: 40px;">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow" style="color: var(--teal);">
+            <span class="dot dot-teal" style="width:6px;height:6px;"></span>
+            <span class="label-caps" style="color: var(--teal);">The Methodology</span>
+          </div>
+          <h2>How we work</h2>
+          <p>Every project follows the same four steps, so you always know what comes next.</p>
+        </div>
+
+        <div class="steps">
+          <article class="card step">
+            <div>
+              <div class="step-top">
+                <span class="step-num" style="color: var(--orange-light); background: rgba(247,152,29,0.1); border: 1px solid rgba(247,152,29,0.3);">1</span>
+                <svg viewBox="0 0 24 24"><path d="M6 18c0-3 2-4 2-7a2 2 0 0 0-4 0M14 18c0-3 2-4 2-7a2 2 0 0 0-4 0"/></svg>
+              </div>
+              <h3 style="margin-top: 22px;">01 / Walk the floor</h3>
+              <p>We visit your site and learn how the work is done today.</p>
+            </div>
+            <div class="stage" style="color: var(--orange-light);">Stage 1: Observation</div>
+          </article>
+
+          <article class="card step">
+            <div>
+              <div class="step-top">
+                <span class="step-num" style="color: var(--teal); background: rgba(94,219,193,0.1); border: 1px solid rgba(94,219,193,0.3);">2</span>
+                <svg viewBox="0 0 24 24"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 2 3h10a2 2 0 0 0 2-3l-5-9V3"/></svg>
+              </div>
+              <h3 style="margin-top: 22px;">02 / Prove it</h3>
+              <p>A small test in your real setting shows what works before you commit.</p>
+            </div>
+            <div class="stage" style="color: var(--teal);">Stage 2: Pilot Testing</div>
+          </article>
+
+          <article class="card step">
+            <div>
+              <div class="step-top">
+                <span class="step-num" style="color: var(--amber); background: rgba(252,192,37,0.1); border: 1px solid rgba(252,192,37,0.3);">3</span>
+                <svg viewBox="0 0 24 24"><path d="M14 4l6 6-3 3-6-6zM3 21l7-7M7 14l-3 3 3 3 3-3"/></svg>
+              </div>
+              <h3 style="margin-top: 22px;">03 / Build and install</h3>
+              <p>We build the system and set it up on site.</p>
+            </div>
+            <div class="stage" style="color: var(--amber);">Stage 3: Integration</div>
+          </article>
+
+          <article class="card step">
+            <div>
+              <div class="step-top">
+                <span class="step-num" style="color: var(--teal); background: rgba(125,247,221,0.1); border: 1px solid rgba(125,247,221,0.3);">4</span>
+                <svg viewBox="0 0 24 24"><path d="M3 16a9 9 0 0 1 18 0"/><path d="M12 16l4-4"/><circle cx="12" cy="16" r="1.5"/></svg>
+              </div>
+              <h3 style="margin-top: 22px;">04 / Support</h3>
+              <p>Training and help from the team that built it.</p>
+            </div>
+            <div class="stage" style="color: var(--teal);">Stage 4: Continuous Ops</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 6. LEAD FORM ============ -->
+    <section class="lead-wrap" id="contact">
+      <div class="container">
+        <div class="lead">
+          <div class="lead-grid">
+
+            <div class="lead-left">
+              <div class="eyebrow" style="align-self: flex-start; background: var(--bg);">
+                <span class="dot dot-orange"></span>
+                <span class="label-caps" style="color: var(--orange);">Get started today</span>
+              </div>
+              <h2>Tell us what you want automated</h2>
+              <p class="intro">Share your details and our team will reach out. You can also call or email us directly.</p>
+
+              <div class="contact-panel">
+                <div class="caps">Direct channels</div>
+                <div class="pills">
+                  <a href="tel:+919677971937" class="pill">
+                    <svg viewBox="0 0 12 12"><path d="M3 1.5l2 2-1 1.2a6 6 0 0 0 2.3 2.3l1.2-1 2 2-1.2 1.5C5.5 9.5 2.5 6.5 1.5 2.7z"/></svg>
+                    +91 96779 71937
+                  </a>
+                  <a href="tel:+919042248462" class="pill">
+                    <svg viewBox="0 0 12 12"><path d="M3 1.5l2 2-1 1.2a6 6 0 0 0 2.3 2.3l1.2-1 2 2-1.2 1.5C5.5 9.5 2.5 6.5 1.5 2.7z"/></svg>
+                    +91 90422 48462
+                  </a>
+                </div>
+                <div class="pills">
+                  <a href="mailto:zenzenithrobotics@gmail.com" class="pill mail">
+                    <svg viewBox="0 0 14 11"><rect x="1" y="1" width="12" height="9" rx="1.5"/><path d="M1.5 2l5.5 4 5.5-4"/></svg>
+                    zenzenithrobotics@gmail.com
+                  </a>
+                </div>
+                <div class="loc">
+                  <svg viewBox="0 0 12 14"><path d="M6 13s4.5-4.2 4.5-7.5a4.5 4.5 0 0 0-9 0C1.5 8.8 6 13 6 13z"/><circle cx="6" cy="5.5" r="1.5"/></svg>
+                  Theni, Tamil Nadu, India
+                </div>
+              </div>
+            </div>
+
+            <div class="form-card">
+              <form class="lead-form" id="leadForm" novalidate>
+                <div class="field">
+                  <label for="name">Your full name</label>
+                  <input id="name" name="name" type="text" placeholder="Rajesh Kumar" autocomplete="name" required />
+                </div>
+
+                <div class="field-row">
+                  <div class="field">
+                    <label for="email">Work email</label>
+                    <input id="email" name="email" type="email" placeholder="rajesh@enterprise.in" autocomplete="email" required />
+                  </div>
+                  <div class="field">
+                    <label for="phone">Phone number</label>
+                    <input id="phone" name="phone" type="tel" placeholder="+91 98765 43210" autocomplete="tel" required />
+                  </div>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submitBtn">
+                  Get in touch
+                  <svg viewBox="0 0 12 12"><path d="M2 6h8M7 3l3 3-3 3"/></svg>
+                </button>
+
+                <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
+                <div class="trust-note">Response within 24 hours • Free site survey consultation</div>
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ 7. FOOTER ============ -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="foot-top">
+        <div class="foot-brand">
+          <h3>Z² Robotics (Z Square Robotics)</h3>
+          <p>Theni, Tamil Nadu, India.</p>
+          <div class="tag">SMARTER SPACES • SAFER ASSETS • BETTER CONTROL</div>
+        </div>
+        <nav class="foot-links">
+          <a href="#top">Home</a>
+          <a href="#what-we-build">What we build</a>
+          <a href="#solutions">Solutions</a>
+          <a href="#how-we-work">How we work</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </div>
+      <div class="foot-divider"></div>
+      <div class="foot-bottom">
+        <span>© 2026 Z² Robotics. All Rights Reserved. Precision Autonomous Systems.</span>
+        <span class="status">
+          <span><span class="dot dot-teal"></span>Telemetry Online</span>
+          <span>Theni Systems Hub</span>
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      // Deployed Apps Script web app URL
+      var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwa_B_-tBZ9bS08RlJ_PZc2vfzT3ccsZx0wg3qna3DhO3wllAMF27P0l09ekc2hH0YtHg/exec";
+
+      var form = document.getElementById("leadForm");
+      var nameInput = document.getElementById("name");
+      var emailInput = document.getElementById("email");
+      var phoneInput = document.getElementById("phone");
+      var submitBtn = document.getElementById("submitBtn");
+      var statusEl = document.getElementById("formStatus");
+
+      function setStatus(message, type) {
+        statusEl.textContent = message;
+        statusEl.className = "form-status" + (type ? " " + type : "");
+      }
+
+      function setBusy(isBusy) {
+        submitBtn.disabled = isBusy;
+      }
+
+      function showSuccess() {
+        setBusy(false);
+        setStatus("Thanks! Our team will reach out within 24 hours.", "ok");
+        form.reset();
+      }
+
+      function showError() {
+        setBusy(false);
+        setStatus("Something went wrong. Please try again.", "err");
+      }
+
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        var name = nameInput.value.trim();
+        var email = emailInput.value.trim();
+        var phone = phoneInput.value.trim();
+
+        if (!name || !email || !phone) {
+          setStatus("Please fill in name, email and phone.", "err");
+          return;
+        }
+
+        setBusy(true);
+        setStatus("Sending...", "");
+
+        var url = SCRIPT_URL + "?" + new URLSearchParams({ name: name, email: email, phone: phone });
+
+        fetch(url, { method: "GET", mode: "no-cors" })
+          .then(function () { showSuccess(); })
+          .catch(function () { showError(); });
+      });
+    })();
+  </script>
+</body>
+</html>
