@@ -270,25 +270,7 @@
     .cat-card h4 { font-weight: 600; font-size: 16px; letter-spacing: 0.16px; color: var(--text); }
     .cat-card p { font-size: 12px; color: var(--muted); line-height: 1.5; }
 
-    .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; align-items: center; }
     .split-left { display: flex; flex-direction: column; gap: 20px; }
-    .split-right { min-width: 0; }
-
-    .mirror-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .mirror {
-      background: var(--bg); border: 1px solid rgba(252, 192, 37, 0.3); border-radius: 12px;
-      padding: 17px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px;
-    }
-    .mirror.teal { border-color: rgba(94, 219, 193, 0.3); }
-    .mirror .lbl { font-size: 12px; color: var(--muted); }
-    .mirror .chip {
-      border: 1px solid rgba(252, 192, 37, 0.4); background: rgba(252, 192, 37, 0.15);
-      border-radius: 4px; padding: 5px 13px; font-family: var(--display); font-weight: 700; font-size: 14px; color: var(--amber);
-    }
-    .mirror.teal .chip { border-color: rgba(94, 219, 193, 0.4); background: rgba(94, 219, 193, 0.15); color: var(--teal); font-size: 12px; padding: 5px 9px; }
-    .mirror .sub { font-size: 11px; color: var(--muted); }
-    .mirror svg { width: 26px; height: 22px; fill: none; stroke: var(--amber); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-    .mirror.teal svg { stroke: var(--teal); }
 
     /* ---------- How we work ---------- */
     .steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; margin-top: 40px; }
@@ -387,7 +369,7 @@
       .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
     @media (max-width: 960px) {
-      .hero-grid, .split, .lead-grid { grid-template-columns: 1fr; }
+      .hero-grid, .lead-grid { grid-template-columns: 1fr; }
       .bento-top { grid-template-columns: 1fr; }
       .bento-bottom { grid-template-columns: 1fr; }
       .nav-links { display: none; }
@@ -409,7 +391,6 @@
       .lead { padding: 26px 18px; }
       .form-card { padding: 22px 18px; }
       .mini-widget { flex-direction: column; align-items: flex-start; }
-      .mirror-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -703,38 +684,20 @@
 
           <!-- Block 04 -->
           <section class="block" style="border-color: rgba(252,192,37,0.2);">
-            <div class="split">
-              <div class="split-left">
-                <div class="block-head" style="align-items: center;">
-                  <div class="num-badge" style="color: var(--amber); background: rgba(252,192,37,0.1); border: 1px solid rgba(252,192,37,0.4);">04</div>
-                  <div>
-                    <h3 class="block-title">Smart Try-On + AI Sizing Mirrors</h3>
-                    <div class="label-caps" style="color: var(--amber); font-size: 11px; letter-spacing: 0.55px; margin-top: 6px;">For clothing and jewellery</div>
-                  </div>
-                </div>
-                <p class="block-desc">Transform dressing rooms and jewelry counters into interactive sales drivers. Eliminates try-on queues while driving up basket conversions.</p>
-                <ul class="check-list">
-                  <li>AI size suggestion in seconds</li>
-                  <li>Virtual try-on for outfits and jewellery</li>
-                  <li>Buy with confidence</li>
-                </ul>
-              </div>
-              <div class="split-right">
-                <div class="mirror-grid">
-                  <div class="mirror">
-                    <svg viewBox="0 0 24 24"><path d="M12 3l3 6h5l-4 4 2 6-6-4-6 4 2-6-4-4h5z"/></svg>
-                    <div class="lbl">CLOTHING AI</div>
-                    <div class="chip">AI SIZE M</div>
-                    <div class="sub">Torso Mesh 98% Match</div>
-                  </div>
-                  <div class="mirror teal">
-                    <svg viewBox="0 0 24 24"><path d="M12 3l1.8 4.2L18 9l-4.2 1.8L12 15l-1.8-4.2L6 9l4.2-1.8zM19 14l.9 2.1L22 17l-2.1.9L19 20l-.9-2.1L16 17l2.1-.9z"/></svg>
-                    <div class="lbl">JEWELLERY AR</div>
-                    <div class="chip">JEWELLERY TRY-ON</div>
-                    <div class="sub">Gold Choker &amp; Ring Overlay</div>
-                  </div>
+            <div class="split-left">
+              <div class="block-head" style="align-items: center;">
+                <div class="num-badge" style="color: var(--amber); background: rgba(252,192,37,0.1); border: 1px solid rgba(252,192,37,0.4);">04</div>
+                <div>
+                  <h3 class="block-title">Smart Try-On + AI Sizing Mirrors</h3>
+                  <div class="label-caps" style="color: var(--amber); font-size: 11px; letter-spacing: 0.55px; margin-top: 6px;">For clothing and jewellery</div>
                 </div>
               </div>
+              <p class="block-desc">Transform dressing rooms and jewelry counters into interactive sales drivers. Eliminates try-on queues while driving up basket conversions.</p>
+              <ul class="check-list">
+                <li>AI size suggestion in seconds</li>
+                <li>Virtual try-on for outfits and jewellery</li>
+                <li>Buy with confidence</li>
+              </ul>
             </div>
           </section>
 
