@@ -40,6 +40,9 @@
     img, svg { display: block; max-width: 100%; }
     button, input { font: inherit; }
 
+    /* Keep anchored sections clear of the sticky header */
+    section[id] { scroll-margin-top: 90px; }
+
     .container { max-width: 1280px; margin: 0 auto; padding: 0 40px; }
 
     /* ---------- Shared pieces ---------- */
@@ -154,6 +157,7 @@
     .nav-links { display: flex; gap: 40px; }
     .nav-links a { color: var(--muted); font-size: 14px; transition: color .15s ease; }
     .nav-links a:hover { color: var(--text); }
+    .header-actions { display: flex; align-items: center; gap: 12px; }
     .header-cta {
       background: var(--orange); color: #050f19;
       border-radius: 9999px; padding: 10px 20px;
@@ -161,6 +165,42 @@
       display: inline-flex; align-items: center; gap: 8px; white-space: nowrap;
     }
     .header-cta svg { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* Three-dot menu */
+    .menu-wrap { position: relative; }
+    .menu-btn {
+      width: 40px; height: 40px; border-radius: 9999px;
+      background: var(--surface); border: 1px solid var(--border);
+      color: var(--text); cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color .15s ease, color .15s ease;
+    }
+    .menu-btn:hover, .menu-btn[aria-expanded="true"] { border-color: var(--teal); color: var(--teal); }
+    .menu-btn:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
+    .menu-btn svg { width: 18px; height: 18px; fill: currentColor; }
+    .menu-dropdown {
+      position: absolute; top: calc(100% + 10px); right: 0;
+      min-width: 200px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 8px;
+      box-shadow: 0 16px 40px -12px rgba(0, 0, 0, 0.6);
+      opacity: 0; visibility: hidden; transform: translateY(-6px);
+      transition: opacity .15s ease, transform .15s ease, visibility .15s ease;
+    }
+    .menu-wrap.open .menu-dropdown { opacity: 1; visibility: visible; transform: translateY(0); }
+    .menu-dropdown a {
+      display: block;
+      padding: 10px 14px;
+      border-radius: 8px;
+      color: var(--muted);
+      font-size: 14px;
+      transition: background .15s ease, color .15s ease;
+    }
+    .menu-dropdown a:hover, .menu-dropdown a:focus-visible {
+      background: var(--bg); color: var(--teal); outline: none;
+    }
 
     /* ---------- Hero ---------- */
     .hero { padding: 80px 0 40px; }
@@ -277,6 +317,10 @@
     .step p { color: var(--muted); font-size: 14px; line-height: 1.625; margin-top: 8px; }
     .step .stage { font-size: 12px; padding-top: 24px; }
 
+    /* ---------- Menu sections (placeholders) ---------- */
+    .placeholder-section { padding: 60px 0; }
+    .placeholder-section .section-head p { max-width: 640px; }
+
     /* ---------- Lead form ---------- */
     .lead-wrap { padding: 40px 0 80px; }
     .lead {
@@ -375,6 +419,7 @@
       .header-cta { padding: 9px 14px; font-size: 12px; }
       .hero { padding: 48px 0 24px; }
       .section { padding: 56px 0; }
+      .placeholder-section { padding: 48px 0; }
       .cta-row .btn-primary, .cta-row .btn-ghost { width: 100%; justify-content: center; }
       .cat-grid, .steps { grid-template-columns: 1fr; }
       .field-row { grid-template-columns: 1fr; }
@@ -399,10 +444,26 @@
         <a href="#how-we-work">How we work</a>
         <a href="#contact">Contact</a>
       </nav>
-      <a href="#contact" class="header-cta">
-        Start a Project
-        <svg viewBox="0 0 12 12"><path d="M2 6h8M7 3l3 3-3 3"/></svg>
-      </a>
+      <div class="header-actions">
+        <a href="#contact" class="header-cta">
+          Start a Project
+          <svg viewBox="0 0 12 12"><path d="M2 6h8M7 3l3 3-3 3"/></svg>
+        </a>
+
+        <!-- Three-dot menu -->
+        <div class="menu-wrap" id="menuWrap">
+          <button type="button" class="menu-btn" id="menuBtn" aria-label="Open menu" aria-haspopup="true" aria-expanded="false" aria-controls="menuDropdown">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg>
+          </button>
+          <div class="menu-dropdown" id="menuDropdown" role="menu">
+            <a href="#products" role="menuitem">Products</a>
+            <a href="#intelligence" role="menuitem">Intelligence</a>
+            <a href="#vision" role="menuitem">Vision</a>
+            <a href="#live-demo" role="menuitem">Live Demo</a>
+            <a href="#blog" role="menuitem">Blog</a>
+          </div>
+        </div>
+      </div>
     </div>
   </header>
 
@@ -756,6 +817,52 @@
       </div>
     </section>
 
+    <!-- ============ 5b. MENU PLACEHOLDER SECTIONS ============ -->
+    <section class="placeholder-section" id="products">
+      <div class="container">
+        <div class="section-head">
+          <h2>Products</h2>
+          <p>Placeholder content for the Products section. Replace this text with an overview of the hardware and software platforms we offer.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="placeholder-section" id="intelligence">
+      <div class="container">
+        <div class="section-head">
+          <h2>Intelligence</h2>
+          <p>Placeholder content for the Intelligence section. Replace this text with details about the analytics and AI capabilities behind our systems.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="placeholder-section" id="vision">
+      <div class="container">
+        <div class="section-head">
+          <h2>Vision</h2>
+          <p>Placeholder content for the Vision section. Replace this text with information about our computer vision and sensing technology.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="placeholder-section" id="live-demo">
+      <div class="container">
+        <div class="section-head">
+          <h2>Live Demo</h2>
+          <p>Placeholder content for the Live Demo section. Replace this text with a description of how visitors can book or view a live demonstration.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="placeholder-section" id="blog">
+      <div class="container">
+        <div class="section-head">
+          <h2>Blog</h2>
+          <p>Placeholder content for the Blog section. Replace this text with links to recent articles, case studies, and product updates.</p>
+        </div>
+      </div>
+    </section>
+
     <!-- ============ 6. LEAD FORM ============ -->
     <section class="lead-wrap" id="contact">
       <div class="container">
@@ -860,6 +967,44 @@
 
   <script>
     (function () {
+      // ---------- Three-dot menu ----------
+      var menuWrap = document.getElementById("menuWrap");
+      var menuBtn = document.getElementById("menuBtn");
+
+      function setMenu(open) {
+        menuWrap.classList.toggle("open", open);
+        menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
+        menuBtn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+      }
+
+      menuBtn.addEventListener("click", function (event) {
+        event.stopPropagation();
+        setMenu(!menuWrap.classList.contains("open"));
+      });
+
+      // Close when clicking outside the menu
+      document.addEventListener("click", function (event) {
+        if (!menuWrap.contains(event.target)) {
+          setMenu(false);
+        }
+      });
+
+      // Close on Escape
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && menuWrap.classList.contains("open")) {
+          setMenu(false);
+          menuBtn.focus();
+        }
+      });
+
+      // Close after choosing an item (the anchor still scrolls smoothly)
+      menuWrap.querySelectorAll(".menu-dropdown a").forEach(function (link) {
+        link.addEventListener("click", function () {
+          setMenu(false);
+        });
+      });
+
+      // ---------- Lead form ----------
       // Deployed Apps Script web app URL
       var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwa_B_-tBZ9bS08RlJ_PZc2vfzT3ccsZx0wg3qna3DhO3wllAMF27P0l09ekc2hH0YtHg/exec";
 
