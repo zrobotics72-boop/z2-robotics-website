@@ -150,16 +150,7 @@
     }
     .header-inner { height: 80px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
     .brand { display: flex; align-items: center; gap: 8px; }
-    .brand-mark {
-      width: 40px; height: 40px; border-radius: 8px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: center;
-      font-family: var(--display); font-weight: 700; font-size: 18px; color: var(--orange);
-    }
-    .brand-text { line-height: 1.2; }
-    .brand-name { font-family: var(--display); font-weight: 700; font-size: 16px; color: var(--text); }
-    .brand-sub { font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); }
+    .brand-logo { height: 40px; width: auto; }
     .nav-links { display: flex; gap: 40px; }
     .nav-links a { color: var(--muted); font-size: 14px; transition: color .15s ease; }
     .nav-links a:hover { color: var(--text); }
@@ -400,11 +391,7 @@
   <header class="site-header">
     <div class="container header-inner">
       <a href="#top" class="brand">
-        <span class="brand-mark">Z²</span>
-        <span class="brand-text">
-          <span class="brand-name">Z² Robotics</span><br />
-          <span class="brand-sub">Automated Systems</span>
-        </span>
+        <img src="logo.png" alt="Z² Robotics logo" class="brand-logo" style="height: 40px;" />
       </a>
       <nav class="nav-links">
         <a href="#what-we-build">What we build</a>
