@@ -22,7 +22,6 @@
       --coral: #ffb4ab;
       --border: rgba(84, 68, 53, 0.4);
       --border-soft: rgba(84, 68, 53, 0.2);
-      --bar-track: #2c3640;
       --display: 'Chakra Petch', 'Trebuchet MS', sans-serif;
       --body: 'IBM Plex Sans', 'Segoe UI', Arial, sans-serif;
     }
@@ -274,20 +273,6 @@
     .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; align-items: center; }
     .split-left { display: flex; flex-direction: column; gap: 20px; }
     .split-right { min-width: 0; }
-    .bar-track { height: 6px; background: var(--bar-track); border-radius: 9999px; overflow: hidden; margin-bottom: 8px; }
-    .bar-fill { height: 100%; border-radius: 9999px; }
-    .stock-panel {
-      background: var(--bg); border: 1px solid rgba(84, 68, 53, 0.3); border-radius: 12px;
-      padding: 25px; display: flex; flex-direction: column; gap: 16px;
-    }
-    .stock-head { display: flex; justify-content: space-between; align-items: center; padding-bottom: 13px; border-bottom: 1px solid var(--border-soft); font-size: 12px; color: var(--muted); }
-    .stock-head b { color: var(--orange); font-weight: 600; }
-    .stock-row { display: flex; flex-direction: column; gap: 4px; }
-    .stock-row .meta { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); }
-    .stock-row .meta b { color: var(--text); font-weight: 600; }
-    .stock-foot { display: flex; justify-content: space-between; align-items: center; padding-top: 13px; border-top: 1px solid var(--border-soft); font-size: 12px; color: var(--teal); }
-    .stock-foot .lat { color: var(--teal); }
-    .stock-foot .dotline { display: inline-flex; align-items: center; gap: 6px; }
 
     .eas-panel {
       background: var(--bg); border: 1px solid rgba(84, 68, 53, 0.3); border-radius: 12px;
@@ -706,44 +691,18 @@
 
           <!-- Block 02 -->
           <section class="block" style="border-color: rgba(247,152,29,0.2);">
-            <div class="split">
-              <div class="split-left">
-                <div class="block-head">
-                  <div class="num-badge" style="color: var(--orange); background: rgba(247,152,29,0.1); border: 1px solid rgba(247,152,29,0.4);">02</div>
-                  <h3 class="block-title">Stock Management Automation</h3>
-                </div>
-                <p class="block-desc">Turn tedious manual counts into instantaneous automated reconciliation. Track inventory at the unit level with sub-millimeter precision.</p>
-                <ul class="check-list">
-                  <li>Real-time inventory tracking</li>
-                  <li>Automatic low-stock alerts &amp; reordering</li>
-                  <li>Barcode &amp; RFID scanning</li>
-                  <li>Accurate reports &amp; demand forecasting</li>
-                </ul>
+            <div class="split-left">
+              <div class="block-head">
+                <div class="num-badge" style="color: var(--orange); background: rgba(247,152,29,0.1); border: 1px solid rgba(247,152,29,0.4);">02</div>
+                <h3 class="block-title">Stock Management Automation</h3>
               </div>
-              <div class="split-right">
-                <div class="stock-panel">
-                  <div class="stock-head">
-                    <span>WAREHOUSE NODE // BAY 04</span>
-                    <b>128 in stock</b>
-                  </div>
-                  <div class="stock-row">
-                    <div class="meta"><span>SKU-992 // RETAIL GOLD</span><b>94%</b></div>
-                    <div class="bar-track"><div class="bar-fill" style="width:94%; background:var(--orange);"></div></div>
-                  </div>
-                  <div class="stock-row">
-                    <div class="meta"><span>SKU-481 // TEXTILE ROLL</span><b>82%</b></div>
-                    <div class="bar-track"><div class="bar-fill" style="width:82%; background:var(--teal);"></div></div>
-                  </div>
-                  <div class="stock-row">
-                    <div class="meta"><span>SKU-104 // HARDWARE RFID</span><b>65%</b></div>
-                    <div class="bar-track"><div class="bar-fill" style="width:65%; background:var(--amber);"></div></div>
-                  </div>
-                  <div class="stock-foot">
-                    <span class="dotline"><span class="dot dot-teal"></span>Auto-Sync Active</span>
-                    <span class="lat">Latency 0.8ms</span>
-                  </div>
-                </div>
-              </div>
+              <p class="block-desc">Turn tedious manual counts into instantaneous automated reconciliation. Track inventory at the unit level with sub-millimeter precision.</p>
+              <ul class="check-list">
+                <li>Real-time inventory tracking</li>
+                <li>Automatic low-stock alerts &amp; reordering</li>
+                <li>Barcode &amp; RFID scanning</li>
+                <li>Accurate reports &amp; demand forecasting</li>
+              </ul>
             </div>
           </section>
 
