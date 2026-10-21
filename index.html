@@ -208,30 +208,6 @@
     .trust-row svg { width: 14px; height: 14px; fill: none; stroke: var(--teal); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
     .trust-row svg.amber { stroke: var(--orange); }
 
-    .telemetry { border-color: rgba(84, 68, 53, 0.5); padding: 25px; display: flex; flex-direction: column; gap: 23px; overflow: hidden; }
-    .telemetry-header { display: flex; align-items: center; justify-content: space-between; padding-bottom: 17px; border-bottom: 1px solid rgba(84, 68, 53, 0.3); }
-    .telemetry-title { display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 13px; letter-spacing: 0.52px; color: var(--text); }
-    .pill-online {
-      background: rgba(94, 219, 193, 0.1); border: 1px solid rgba(94, 219, 193, 0.3);
-      border-radius: 9999px; padding: 3px 11px;
-      font-family: var(--display); font-weight: 700; font-size: 11px; letter-spacing: 1.1px; color: var(--teal);
-    }
-    .schematic { background: var(--bg); border: 1px solid var(--border-soft); border-radius: 8px; padding: 17px; display: flex; flex-direction: column; gap: 12px; }
-    .schematic-head { display: flex; align-items: center; justify-content: space-between; font-size: 12px; color: var(--muted); }
-    .schematic-head svg { width: 12px; height: 9px; stroke: var(--teal); fill: none; stroke-width: 1.8; }
-    .metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-    .metric { background: var(--surface); border: 1px solid var(--border-soft); border-radius: 6px; padding: 13px 13px 22px; text-align: center; }
-    .metric .num { font-family: var(--display); font-weight: 700; font-size: 20px; line-height: 1.4; }
-    .metric .lbl { font-size: 11px; color: var(--muted); line-height: 1.5; text-transform: uppercase; }
-    .bars { border-top: 1px solid var(--border-soft); padding-top: 17px; display: flex; flex-direction: column; gap: 8px; }
-    .bar-row { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); }
-    .bar-row b { font-weight: 600; }
-    .bar-track { height: 6px; background: var(--bar-track); border-radius: 9999px; overflow: hidden; margin-bottom: 8px; }
-    .bar-fill { height: 100%; border-radius: 9999px; }
-    .telemetry-foot { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); }
-    .telemetry-foot .r { color: var(--text); display: inline-flex; align-items: center; gap: 4px; }
-    .telemetry-foot svg { width: 9px; height: 9px; stroke: var(--teal); fill: none; stroke-width: 1.8; }
-
     /* ---------- What we build ---------- */
     .section { padding: 80px 0; }
     .bento-top, .bento-bottom { display: grid; gap: 24px; }
@@ -298,6 +274,8 @@
     .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; align-items: center; }
     .split-left { display: flex; flex-direction: column; gap: 20px; }
     .split-right { min-width: 0; }
+    .bar-track { height: 6px; background: var(--bar-track); border-radius: 9999px; overflow: hidden; margin-bottom: 8px; }
+    .bar-fill { height: 100%; border-radius: 9999px; }
     .stock-panel {
       background: var(--bg); border: 1px solid rgba(84, 68, 53, 0.3); border-radius: 12px;
       padding: 25px; display: flex; flex-direction: column; gap: 16px;
@@ -464,7 +442,6 @@
       .cta-row .btn-primary, .cta-row .btn-ghost { width: 100%; justify-content: center; }
       .cat-grid, .steps { grid-template-columns: 1fr; }
       .field-row { grid-template-columns: 1fr; }
-      .metrics { grid-template-columns: 1fr 1fr 1fr; }
       .block { padding: 22px; }
       .lead { padding: 26px 18px; }
       .form-card { padding: 22px 18px; }
@@ -540,54 +517,6 @@
             </span>
           </div>
         </div>
-
-        <!-- Telemetry card -->
-        <aside class="card telemetry">
-          <div class="telemetry-header">
-            <div class="telemetry-title">
-              <span class="dot dot-teal"></span>
-              UNIT-Z2 // TELEMETRY LINK
-            </div>
-            <span class="pill-online">ONLINE</span>
-          </div>
-
-          <div class="schematic">
-            <div class="schematic-head">
-              <span>DEPLOYMENT STATS // SOUTH INDIA</span>
-              <svg viewBox="0 0 12 9"><path d="M1 4.5a5 5 0 0 1 10 0M3 4.5a3 3 0 0 1 6 0"/></svg>
-            </div>
-
-            <div class="metrics">
-              <div class="metric">
-                <div class="num" style="color:#ffbc78;">99.8%</div>
-                <div class="lbl">System uptime</div>
-              </div>
-              <div class="metric">
-                <div class="num" style="color:var(--teal);">10x</div>
-                <div class="lbl">Inventory<br />speed</div>
-              </div>
-              <div class="metric">
-                <div class="num" style="color:var(--amber);">150+</div>
-                <div class="lbl">Spaces<br />enabled</div>
-              </div>
-            </div>
-
-            <div class="bars">
-              <div class="bar-row"><span>RFID accuracy rate</span><b style="color:var(--teal);">99.94%</b></div>
-              <div class="bar-track"><div class="bar-fill" style="width:98%; background:var(--teal);"></div></div>
-              <div class="bar-row"><span>Facility latency (Theni DC)</span><b style="color:var(--orange-light);">1.4ms</b></div>
-              <div class="bar-track"><div class="bar-fill" style="width:94%; background:var(--orange);"></div></div>
-            </div>
-          </div>
-
-          <div class="telemetry-foot">
-            <span>LOC: THENI, TAMIL NADU</span>
-            <span class="r">
-              <svg viewBox="0 0 12 12"><circle cx="6" cy="6" r="5"/><path d="M1 6h10M6 1c2 2 2 8 0 10M6 1c-2 2-2 8 0 10"/></svg>
-              HARDWARE MESH VER. 3.4
-            </span>
-          </div>
-        </aside>
       </div>
     </section>
 
