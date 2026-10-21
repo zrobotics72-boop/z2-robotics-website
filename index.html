@@ -274,28 +274,6 @@
     .split-left { display: flex; flex-direction: column; gap: 20px; }
     .split-right { min-width: 0; }
 
-    .eas-panel {
-      background: var(--bg); border: 1px solid rgba(84, 68, 53, 0.3); border-radius: 12px;
-      padding: 25px; display: flex; flex-direction: column; gap: 16px;
-    }
-    .eas-title { text-align: center; font-weight: 600; font-size: 12px; letter-spacing: 0.6px; color: var(--coral); text-transform: uppercase; }
-    .eas-gate {
-      background: rgba(23, 32, 43, 0.6); border: 1px solid var(--border-soft); border-radius: 8px;
-      padding: 25px 0; display: flex; align-items: center; justify-content: center; gap: 22px; overflow: hidden;
-    }
-    .eas-post {
-      width: 36px; height: 112px; background: #212b35; border: 2px solid rgba(255, 180, 171, 0.5); border-radius: 4px;
-      display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 10px 2px;
-    }
-    .eas-post i { width: 8px; height: 8px; border-radius: 9999px; background: var(--coral); display: block; }
-    .eas-post span { writing-mode: vertical-rl; transform: rotate(180deg); font-size: 9px; color: var(--muted); letter-spacing: 0.5px; }
-    .eas-center { display: flex; flex-direction: column; align-items: center; gap: 4px; text-align: center; }
-    .eas-center svg { width: 24px; height: 32px; fill: none; stroke: var(--coral); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-    .eas-center .p { font-size: 12px; color: var(--text); }
-    .eas-center .q { font-family: var(--display); font-weight: 500; font-size: 10px; color: var(--teal); }
-    .tag-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
-    .tag-grid div { background: var(--surface); border: 1px solid var(--border-soft); border-radius: 4px; padding: 9px; text-align: center; font-size: 12px; color: var(--text); }
-
     .mirror-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     .mirror {
       background: var(--bg); border: 1px solid rgba(252, 192, 37, 0.3); border-radius: 12px;
@@ -708,40 +686,18 @@
 
           <!-- Block 03 -->
           <section class="block" style="border-color: rgba(255,180,171,0.2);">
-            <div class="split">
-              <div class="split-right">
-                <div class="eas-panel">
-                  <div class="eas-title">EAS Active Frequency Perimeter</div>
-                  <div class="eas-gate">
-                    <div class="eas-post"><i></i><span>GATE A</span><i></i></div>
-                    <div class="eas-center">
-                      <svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0"/></svg>
-                      <div class="p">PULSE: 58 kHz</div>
-                      <div class="q">NO BLIND SPOTS</div>
-                    </div>
-                    <div class="eas-post"><i></i><span>GATE B</span><i></i></div>
-                  </div>
-                  <div class="tag-grid">
-                    <div>Hard Tags</div>
-                    <div>AM Labels</div>
-                    <div>RF Labels</div>
-                    <div>Jewellery Tags</div>
-                  </div>
-                </div>
+            <div class="split-left">
+              <div class="block-head">
+                <div class="num-badge" style="color: var(--coral); background: rgba(255,180,171,0.1); border: 1px solid rgba(255,180,171,0.4);">03</div>
+                <h3 class="block-title">Anti-Theft Solutions</h3>
               </div>
-              <div class="split-left">
-                <div class="block-head">
-                  <div class="num-badge" style="color: var(--coral); background: rgba(255,180,171,0.1); border: 1px solid rgba(255,180,171,0.4);">03</div>
-                  <h3 class="block-title">Anti-Theft Solutions</h3>
-                </div>
-                <p class="block-desc">Protect your high-value inventory without compromising store aesthetics or smooth footfall. Discrete, uncompromised loss prevention.</p>
-                <ul class="check-list">
-                  <li>AM &amp; RF anti-theft (EAS) systems</li>
-                  <li>For jewellery, textile &amp; supermarkets</li>
-                  <li>Factories, warehouses &amp; more</li>
-                  <li>Various types of security tags</li>
-                </ul>
-              </div>
+              <p class="block-desc">Protect your high-value inventory without compromising store aesthetics or smooth footfall. Discrete, uncompromised loss prevention.</p>
+              <ul class="check-list">
+                <li>AM &amp; RF anti-theft (EAS) systems</li>
+                <li>For jewellery, textile &amp; supermarkets</li>
+                <li>Factories, warehouses &amp; more</li>
+                <li>Various types of security tags</li>
+              </ul>
             </div>
           </section>
 
