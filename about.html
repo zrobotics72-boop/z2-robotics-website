@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us | Z² Robotics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #121c26;
+      --surface: #17202b;
+      --footer-bg: #050f19;
+      --text: #d9e3f2;
+      --muted: #dac2ae;
+      --orange: #f7981d;
+      --orange-light: #ffbc78;
+      --amber: #fcc025;
+      --teal: #5edbc1;
+      --coral: #ffb4ab;
+      --border: rgba(84, 68, 53, 0.4);
+      --border-soft: rgba(84, 68, 53, 0.2);
+      --display: 'Chakra Petch', 'Trebuchet MS', sans-serif;
+      --body: 'IBM Plex Sans', 'Segoe UI', Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg); color: var(--text); font-family: var(--body);
+      font-size: 14px; line-height: 1.6; -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    img, svg { display: block; max-width: 100%; }
+
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 40px; }
+
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--surface); border: 1px solid var(--border); border-radius: 9999px;
+      padding: 5px 13px; font-family: var(--display); font-weight: 700; font-size: 11px;
+      letter-spacing: 1.1px; text-transform: uppercase;
+    }
+    .label-caps { font-family: var(--display); font-weight: 700; font-size: 11px; letter-spacing: 1.1px; text-transform: uppercase; }
+    .dot { width: 8px; height: 8px; border-radius: 9999px; display: inline-block; flex-shrink: 0; }
+    .dot-orange { background: var(--orange); }
+    .dot-teal { background: var(--teal); }
+
+    .card {
+      position: relative; background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+      padding: 25px; box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
+    }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px; background: var(--orange); color: #050f19; border: 0;
+      border-radius: 9999px; padding: 14px 32px; font-family: var(--display); font-weight: 700; font-size: 16px;
+      letter-spacing: 0.4px; box-shadow: 0 0 24px -4px rgba(247, 152, 29, 0.35); transition: transform .15s ease, filter .15s ease;
+    }
+    .btn-primary:hover { filter: brightness(1.06); transform: translateY(-1px); }
+    .btn-primary svg, .header-cta svg {
+      width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+    }
+
+    /* ---------- Header ---------- */
+    .site-header {
+      position: sticky; top: 0; z-index: 50; background: rgba(18, 28, 38, 0.92); backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border-soft);
+    }
+    .header-inner { height: 80px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: flex; align-items: center; flex-shrink: 0; }
+    .brand-logo { height: 40px; width: auto; }
+    .nav-links { display: flex; align-items: center; gap: 36px; }
+    .nav-links a {
+      color: var(--muted); font-size: 14px; padding: 6px 0; border-bottom: 2px solid transparent;
+      transition: color .15s ease, border-color .15s ease;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a.active { color: var(--teal); border-bottom-color: var(--teal); }
+    .header-actions { display: flex; align-items: center; gap: 12px; }
+    .header-cta {
+      background: var(--orange); color: #050f19; border-radius: 9999px; padding: 10px 20px;
+      font-family: var(--display); font-weight: 700; font-size: 13px; letter-spacing: 0.3px;
+      display: inline-flex; align-items: center; gap: 8px; white-space: nowrap;
+    }
+    .menu-toggle {
+      display: none; width: 40px; height: 40px; border-radius: 9999px; background: var(--surface);
+      border: 1px solid var(--border); color: var(--text); cursor: pointer; align-items: center; justify-content: center;
+    }
+    .menu-toggle:focus-visible, .nav-links a:focus-visible, .mobile-nav a:focus-visible { outline: 2px solid var(--teal); outline-offset: 3px; }
+    .menu-toggle svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
+    .mobile-nav {
+      display: none; position: absolute; top: 100%; left: 0; right: 0; background: var(--bg);
+      border-bottom: 1px solid var(--border-soft); padding: 8px 20px 20px; flex-direction: column;
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a { padding: 14px 0; border-bottom: 1px solid var(--border-soft); color: var(--muted); font-size: 15px; }
+    .mobile-nav a.active { color: var(--teal); }
+
+    /* ---------- About ---------- */
+    .about-hero { padding: 80px 0 40px; }
+    .about-hero h1 {
+      font-family: var(--display); font-weight: 700; font-size: clamp(36px, 4.2vw, 52px);
+      line-height: 1.16; letter-spacing: -1px; color: var(--text); margin-top: 24px; max-width: 880px;
+    }
+    .about-body { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 32px; align-items: start; }
+    .about-text {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 41px;
+      box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.08); display: flex; flex-direction: column; gap: 20px;
+    }
+    .about-text h2 { font-family: var(--display); font-weight: 600; font-size: 28px; letter-spacing: -0.3px; line-height: 1.25; color: var(--text); }
+    .about-text p { color: var(--muted); font-size: 16px; line-height: 1.7; }
+
+    .contact-card { display: flex; flex-direction: column; gap: 20px; }
+    .contact-card .caps {
+      font-family: var(--display); font-weight: 700; font-size: 11px; letter-spacing: 1.1px;
+      text-transform: uppercase; color: var(--muted);
+    }
+    .contact-card h3 { font-family: var(--display); font-weight: 600; font-size: 20px; color: var(--text); line-height: 1.4; }
+    .contact-list { display: flex; flex-direction: column; gap: 12px; }
+    .pill {
+      background: var(--bg); border: 1px solid var(--border); border-radius: 9999px; padding: 11px 17px;
+      display: inline-flex; align-items: center; gap: 10px; font-size: 14px; color: var(--text);
+      transition: border-color .15s ease; align-self: flex-start;
+    }
+    .pill:hover { border-color: var(--teal); }
+    .pill svg { width: 12px; height: 12px; fill: none; stroke: var(--orange); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+    .pill.mail svg { stroke: var(--teal); }
+    .loc { display: flex; align-items: center; gap: 8px; padding-top: 4px; color: var(--muted); font-size: 14px; }
+    .loc svg { width: 11px; height: 13px; fill: none; stroke: var(--amber); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .contact-card .btn-primary { align-self: flex-start; margin-top: 4px; }
+
+    /* ---------- Footer ---------- */
+    .site-footer { background: var(--footer-bg); border-top: 1px solid var(--border-soft); padding: 40px 0 36px; margin-top: 80px; }
+    .foot-top { display: flex; justify-content: space-between; gap: 24px; align-items: flex-start; flex-wrap: wrap; }
+    .foot-brand h3 { font-family: var(--display); font-weight: 700; font-size: 20px; color: var(--text); }
+    .foot-brand p { font-size: 13px; color: var(--muted); margin-top: 8px; }
+    .foot-brand .tag { margin-top: 12px; font-family: var(--display); font-weight: 700; font-size: 11px; letter-spacing: 1.1px; color: var(--orange-light); }
+    .foot-links { display: flex; gap: 28px; flex-wrap: wrap; padding-top: 28px; }
+    .foot-links a { font-size: 13px; color: var(--muted); transition: color .15s ease; }
+    .foot-links a:hover, .foot-links a.active { color: var(--text); }
+    .foot-divider { height: 1px; background: var(--border-soft); margin: 24px 0 20px; }
+    .foot-bottom { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; font-size: 12px; color: var(--muted); }
+    .foot-bottom .status { display: inline-flex; align-items: center; gap: 16px; }
+    .foot-bottom .status span { display: inline-flex; align-items: center; gap: 6px; }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 960px) {
+      .about-body { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .menu-toggle { display: flex; }
+      .about-text { padding: 30px 26px; }
+    }
+    @media (max-width: 640px) {
+      .container { padding: 0 20px; }
+      .header-inner { height: 68px; }
+      .header-cta { padding: 9px 14px; font-size: 12px; }
+      .about-hero { padding: 48px 0 24px; }
+      .about-text { padding: 24px 20px; }
+      .about-text h2 { font-size: 24px; }
+      .site-footer { margin-top: 56px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============ HEADER ============ -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="Z² Robotics home">
+        <img src="logo.png" alt="Z² Robotics logo" class="brand-logo" />
+      </a>
+
+      <nav class="nav-links" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="about.html" class="active" aria-current="page">About Us</a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="index.html#contact" class="header-cta">
+          Start a Project
+          <svg viewBox="0 0 12 12"><path d="M2 6h8M7 3l3 3-3 3"/></svg>
+        </a>
+        <button class="menu-toggle" id="menuToggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav">
+          <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+
+      <div class="mobile-nav" id="mobileNav">
+        <a href="index.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="about.html" class="active" aria-current="page">About Us</a>
+        <a href="index.html#contact">Start a Project</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ============ ABOUT HEADING ============ -->
+    <section class="about-hero">
+      <div class="container">
+        <div class="eyebrow">
+          <span class="dot dot-orange"></span>
+          <span class="label-caps" style="color: var(--orange);">About Us</span>
+        </div>
+        <h1>Built in Theni, for the spaces around us.</h1>
+      </div>
+    </section>
+
+    <!-- ============ ABOUT + CONTACT ============ -->
+    <section style="padding-bottom: 40px;">
+      <div class="container about-body">
+
+        <div class="about-text">
+          <h2>Who we are</h2>
+          <p>
+            Z² Robotics is based in Theni, Tamil Nadu, and designs automation for the places people use every day,
+            from libraries and shops to warehouses and homes. Our small team of engineers handles the work from
+            first site visit to installation and ongoing support, so each system fits the way a space actually runs.
+          </p>
+        </div>
+
+        <div class="card contact-card" id="contact-us">
+          <div class="caps">Contact us</div>
+          <h3>Talk to our team</h3>
+
+          <div class="contact-list">
+            <a href="tel:+919677971937" class="pill">
+              <svg viewBox="0 0 12 12"><path d="M3 1.5l2 2-1 1.2a6 6 0 0 0 2.3 2.3l1.2-1 2 2-1.2 1.5C5.5 9.5 2.5 6.5 1.5 2.7z"/></svg>
+              +91 96779 71937
+            </a>
+            <a href="tel:+919042248462" class="pill">
+              <svg viewBox="0 0 12 12"><path d="M3 1.5l2 2-1 1.2a6 6 0 0 0 2.3 2.3l1.2-1 2 2-1.2 1.5C5.5 9.5 2.5 6.5 1.5 2.7z"/></svg>
+              +91 90422 48462
+            </a>
+            <a href="mailto:zenzenithrobotics@gmail.com" class="pill mail">
+              <svg viewBox="0 0 14 11"><rect x="1" y="1" width="12" height="9" rx="1.5"/><path d="M1.5 2l5.5 4 5.5-4"/></svg>
+              zenzenithrobotics@gmail.com
+            </a>
+            <div class="loc">
+              <svg viewBox="0 0 12 14"><path d="M6 13s4.5-4.2 4.5-7.5a4.5 4.5 0 0 0-9 0C1.5 8.8 6 13 6 13z"/><circle cx="6" cy="5.5" r="1.5"/></svg>
+              Theni, Tamil Nadu, India
+            </div>
+          </div>
+
+          <a href="index.html#contact" class="btn-primary">
+            Start a Project
+            <svg viewBox="0 0 12 12"><path d="M2 6h8M7 3l3 3-3 3"/></svg>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="foot-top">
+        <div class="foot-brand">
+          <h3>Z² Robotics (Z Square Robotics)</h3>
+          <p>Theni, Tamil Nadu, India.</p>
+          <div class="tag">SMARTER SPACES • SAFER ASSETS • BETTER CONTROL</div>
+        </div>
+        <nav class="foot-links" aria-label="Footer">
+          <a href="index.html">Home</a>
+          <a href="services.html">Services</a>
+          <a href="about.html" class="active">About Us</a>
+          <a href="index.html#contact">Contact</a>
+        </nav>
+      </div>
+      <div class="foot-divider"></div>
+      <div class="foot-bottom">
+        <span>© 2026 Z² Robotics. All Rights Reserved. Precision Autonomous Systems.</span>
+        <span class="status">
+          <span><span class="dot dot-teal"></span>Telemetry Online</span>
+          <span>Theni Systems Hub</span>
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var toggle = document.getElementById("menuToggle");
+      var mobileNav = document.getElementById("mobileNav");
+
+      function setMenu(open) {
+        mobileNav.classList.toggle("open", open);
+        toggle.setAttribute("aria-expanded", open ? "true" : "false");
+        toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+      }
+
+      toggle.addEventListener("click", function (event) {
+        event.stopPropagation();
+        setMenu(!mobileNav.classList.contains("open"));
+      });
+
+      document.addEventListener("click", function (event) {
+        if (!mobileNav.contains(event.target) && event.target !== toggle) setMenu(false);
+      });
+
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") setMenu(false);
+      });
+
+      mobileNav.querySelectorAll("a").forEach(function (link) {
+        link.addEventListener("click", function () { setMenu(false); });
+      });
+    })();
+  </script>
+</body>
+</html>

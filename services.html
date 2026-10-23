@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Services | Z² Robotics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #121c26;
+      --surface: #17202b;
+      --footer-bg: #050f19;
+      --text: #d9e3f2;
+      --muted: #dac2ae;
+      --orange: #f7981d;
+      --orange-light: #ffbc78;
+      --amber: #fcc025;
+      --teal: #5edbc1;
+      --coral: #ffb4ab;
+      --border: rgba(84, 68, 53, 0.4);
+      --border-soft: rgba(84, 68, 53, 0.2);
+      --display: 'Chakra Petch', 'Trebuchet MS', sans-serif;
+      --body: 'IBM Plex Sans', 'Segoe UI', Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg); color: var(--text); font-family: var(--body);
+      font-size: 14px; line-height: 1.6; -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    img, svg { display: block; max-width: 100%; }
+    section[id] { scroll-margin-top: 90px; }
+
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 40px; }
+
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--surface); border: 1px solid var(--border); border-radius: 9999px;
+      padding: 5px 13px; font-family: var(--display); font-weight: 700; font-size: 11px;
+      letter-spacing: 1.1px; text-transform: uppercase;
+    }
+    .label-caps { font-family: var(--display); font-weight: 700; font-size: 11px; letter-spacing: 1.1px; text-transform: uppercase; }
+    .dot { width: 8px; height: 8px; border-radius: 9999px; display: inline-block; flex-shrink: 0; }
+    .dot-orange { background: var(--orange); }
+    .dot-teal { background: var(--teal); }
+
+    .section-head { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 12px; max-width: 768px; margin: 0 auto; }
+    .section-head h2 { font-family: var(--display); font-weight: 600; font-size: 40px; letter-spacing: -0.6px; line-height: 1.2; color: var(--text); }
+    .section-head p { color: var(--muted); font-size: 14px; letter-spacing: 0.07px; }
+
+    .card {
+      position: relative; background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+      padding: 25px; box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
+    }
+    .icon-box {
+      width: 48px; height: 48px; border-radius: 8px; background: var(--bg);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .icon-box svg { width: 22px; height: 22px; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .h3 { font-family: var(--display); font-weight: 600; font-size: 20px; line-height: 1.4; color: var(--text); }
+    .muted { color: var(--muted); }
+
+    .mini-widget {
+      background: var(--bg); border: 1px solid var(--border-soft); border-radius: 8px; padding: 15px;
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    }
+    .mini-widget .left { display: flex; align-items: center; gap: 10px; min-width: 0; }
+    .mini-widget .title { font-size: 12px; color: var(--text); line-height: 1.35; }
+    .mini-widget .sub { font-size: 12px; line-height: 1.35; }
+    .mini-widget .tag { font-family: var(--display); font-weight: 700; font-size: 10px; white-space: nowrap; }
+    .mini-widget svg { width: 18px; height: 18px; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+    .tag-pill {
+      border-radius: 9999px; padding: 5px 11px; font-family: var(--display); font-weight: 500; font-size: 11px;
+      letter-spacing: 0.2px; border: 1px solid; background: transparent; white-space: nowrap;
+    }
+    .c-teal { color: var(--teal); }
+    .c-orange { color: var(--orange); }
+    .c-amber { color: var(--amber); }
+    .c-coral { color: var(--coral); }
+    .ico-teal { border: 1px solid rgba(94, 219, 193, 0.3); color: var(--teal); }
+    .ico-orange { border: 1px solid rgba(247, 152, 29, 0.3); color: var(--orange); }
+    .ico-coral { border: 1px solid rgba(255, 180, 171, 0.3); color: var(--coral); }
+    .ico-amber { border: 1px solid rgba(252, 192, 37, 0.3); color: var(--amber); }
+
+    .header-cta svg { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* ---------- Header ---------- */
+    .site-header {
+      position: sticky; top: 0; z-index: 50; background: rgba(18, 28, 38, 0.92); backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border-soft);
+    }
+    .header-inner { height: 80px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: flex; align-items: center; flex-shrink: 0; }
+    .brand-logo { height: 40px; width: auto; }
+    .nav-links { display: flex; align-items: center; gap: 36px; }
+    .nav-links a {
+      color: var(--muted); font-size: 14px; padding: 6px 0; border-bottom: 2px solid transparent;
+      transition: color .15s ease, border-color .15s ease;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a.active { color: var(--teal); border-bottom-color: var(--teal); }
+    .header-actions { display: flex; align-items: center; gap: 12px; }
+    .header-cta {
+      background: var(--orange); color: #050f19; border-radius: 9999px; padding: 10px 20px;
+      font-family: var(--display); font-weight: 700; font-size: 13px; letter-spacing: 0.3px;
+      display: inline-flex; align-items: center; gap: 8px; white-space: nowrap;
+    }
+    .menu-toggle {
+      display: none; width: 40px; height: 40px; border-radius: 9999px; background: var(--surface);
+      border: 1px solid var(--border); color: var(--text); cursor: pointer; align-items: center; justify-content: center;
+    }
+    .menu-toggle:focus-visible, .nav-links a:focus-visible, .mobile-nav a:focus-visible { outline: 2px solid var(--teal); outline-offset: 3px; }
+    .menu-toggle svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
+    .mobile-nav {
+      display: none; position: absolute; top: 100%; left: 0; right: 0; background: var(--bg);
+      border-bottom: 1px solid var(--border-soft); padding: 8px 20px 20px; flex-direction: column;
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a { padding: 14px 0; border-bottom: 1px solid var(--border-soft); color: var(--muted); font-size: 15px; }
+    .mobile-nav a.active { color: var(--teal); }
+
+    /* ---------- Page heading ---------- */
+    .page-hero { padding: 80px 0 16px; }
+    .page-hero h1 {
+      font-family: var(--display); font-weight: 700; font-size: clamp(36px, 4.2vw, 52px);
+      line-height: 1.16; letter-spacing: -1px; color: var(--text); margin-top: 24px; max-width: 880px;
+    }
+    .page-hero .hero-sub { font-size: 18px; line-height: 1.6; color: var(--muted); max-width: 672px; margin-top: 20px; }
+
+    /* ---------- What we build ---------- */
+    .section { padding: 80px 0; }
+    .bento-top, .bento-bottom { display: grid; gap: 24px; }
+    .bento-top { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 40px; }
+    .bento-bottom { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 24px; }
+    .bento-card { display: flex; flex-direction: column; justify-content: space-between; gap: 24px; }
+    .bento-card .top { display: flex; flex-direction: column; gap: 4px; }
+    .bento-card .head-row { display: flex; align-items: center; justify-content: space-between; }
+    .bento-card .kicker { margin-top: 20px; }
+    .bento-card .h3 { margin-top: 8px; }
+    .bento-card p.desc { margin-top: 8px; color: var(--muted); font-size: 14px; line-height: 1.6; }
+    .bento-card.bottom .head-row { align-items: center; }
+
+    /* ---------- Solutions ---------- */
+    .blocks { display: flex; flex-direction: column; gap: 64px; margin-top: 40px; }
+    .block {
+      position: relative; background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
+      padding: 41px; box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.08); display: flex; flex-direction: column; gap: 24px;
+    }
+    .block-head { display: flex; align-items: center; gap: 12px; }
+    .num-badge {
+      width: 36px; height: 36px; border-radius: 6px; display: flex; align-items: center; justify-content: center;
+      font-family: var(--display); font-weight: 700; font-size: 16px; flex-shrink: 0;
+    }
+    .block-title { font-family: var(--display); font-weight: 600; font-size: 32px; letter-spacing: -0.32px; line-height: 1.25; color: var(--text); }
+    .block-desc { color: var(--muted); font-size: 14px; line-height: 1.6; max-width: 768px; }
+    .check-list { list-style: none; display: flex; flex-direction: column; gap: 12px; padding-top: 8px; }
+    .check-list li { display: flex; align-items: center; gap: 12px; font-size: 16px; color: var(--text); }
+    .check-list li::before {
+      content: ""; width: 20px; height: 20px; flex-shrink: 0;
+      background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><circle cx='10' cy='10' r='9' fill='none' stroke='%235edbc1' stroke-opacity='0.6'/><path d='M6 10.2l2.6 2.6L14 7.4' fill='none' stroke='%235edbc1' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/></svg>") center / contain no-repeat;
+    }
+    .sector-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 32px; padding-top: 8px; }
+    .sector-list dt { font-family: var(--display); font-weight: 600; font-size: 16px; color: var(--text); }
+    .sector-list dd { font-size: 14px; color: var(--muted); margin-top: 4px; line-height: 1.6; }
+
+    /* ---------- How we work ---------- */
+    .steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; margin-top: 40px; }
+    .step { display: flex; flex-direction: column; justify-content: space-between; gap: 22px; }
+    .step-top { display: flex; align-items: center; justify-content: space-between; }
+    .step-num {
+      width: 32px; height: 32px; border-radius: 9999px; display: flex; align-items: center; justify-content: center;
+      font-family: var(--display); font-weight: 700; font-size: 14px;
+    }
+    .step-top svg { width: 20px; height: 20px; fill: none; stroke: var(--text); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+    .step h3 { font-family: var(--display); font-weight: 600; font-size: 20px; line-height: 1.4; color: var(--text); }
+    .step p { color: var(--muted); font-size: 14px; line-height: 1.625; margin-top: 8px; }
+    .step .stage { font-size: 12px; padding-top: 24px; }
+
+    /* ---------- Footer ---------- */
+    .site-footer { background: var(--footer-bg); border-top: 1px solid var(--border-soft); padding: 40px 0 36px; }
+    .foot-top { display: flex; justify-content: space-between; gap: 24px; align-items: flex-start; flex-wrap: wrap; }
+    .foot-brand h3 { font-family: var(--display); font-weight: 700; font-size: 20px; color: var(--text); }
+    .foot-brand p { font-size: 13px; color: var(--muted); margin-top: 8px; }
+    .foot-brand .tag { margin-top: 12px; font-family: var(--display); font-weight: 700; font-size: 11px; letter-spacing: 1.1px; color: var(--orange-light); }
+    .foot-links { display: flex; gap: 28px; flex-wrap: wrap; padding-top: 28px; }
+    .foot-links a { font-size: 13px; color: var(--muted); transition: color .15s ease; }
+    .foot-links a:hover, .foot-links a.active { color: var(--text); }
+    .foot-divider { height: 1px; background: var(--border-soft); margin: 24px 0 20px; }
+    .foot-bottom { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; font-size: 12px; color: var(--muted); }
+    .foot-bottom .status { display: inline-flex; align-items: center; gap: 16px; }
+    .foot-bottom .status span { display: inline-flex; align-items: center; gap: 6px; }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 1100px) {
+      .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 960px) {
+      .bento-top { grid-template-columns: 1fr; }
+      .bento-bottom { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .menu-toggle { display: flex; }
+      .block { padding: 28px; }
+      .block-title { font-size: 26px; }
+      .section-head h2 { font-size: 32px; }
+    }
+    @media (max-width: 640px) {
+      .container { padding: 0 20px; }
+      .header-inner { height: 68px; }
+      .header-cta { padding: 9px 14px; font-size: 12px; }
+      .page-hero { padding: 48px 0 8px; }
+      .section { padding: 56px 0; }
+      .steps { grid-template-columns: 1fr; }
+      .sector-list { grid-template-columns: 1fr; }
+      .block { padding: 22px; }
+      .mini-widget { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============ HEADER ============ -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="Z² Robotics home">
+        <img src="logo.png" alt="Z² Robotics logo" class="brand-logo" />
+      </a>
+
+      <nav class="nav-links" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="services.html" class="active" aria-current="page">Services</a>
+        <a href="about.html">About Us</a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="index.html#contact" class="header-cta">
+          Start a Project
+          <svg viewBox="0 0 12 12"><path d="M2 6h8M7 3l3 3-3 3"/></svg>
+        </a>
+        <button class="menu-toggle" id="menuToggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav">
+          <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+
+      <div class="mobile-nav" id="mobileNav">
+        <a href="index.html">Home</a>
+        <a href="services.html" class="active" aria-current="page">Services</a>
+        <a href="about.html">About Us</a>
+        <a href="index.html#contact">Start a Project</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ============ PAGE HEADING ============ -->
+    <section class="page-hero">
+      <div class="container">
+        <div class="eyebrow">
+          <span class="dot dot-orange"></span>
+          <span class="label-caps" style="color: var(--orange);">Services</span>
+        </div>
+        <h1>Automation for every kind of space.</h1>
+        <p class="hero-sub">From library kiosks and stock counting to try-on mirrors and warehouse robots, we build the systems and install them on site.</p>
+      </div>
+    </section>
+
+    <!-- ============ WHAT WE BUILD ============ -->
+    <section class="section" id="what-we-build" style="padding-top: 40px;">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow" style="color: var(--orange);">
+            <span class="dot dot-orange"></span>
+            <span class="label-caps" style="color: var(--orange);">Core Capabilities</span>
+          </div>
+          <h2>What we build</h2>
+          <p>Five product lines for homes, libraries, retail, hospitality, logistics, and corporate spaces.</p>
+        </div>
+
+        <div class="bento-top">
+          <article class="card bento-card">
+            <div class="top">
+              <div class="icon-box ico-teal" style="border:1px solid rgba(94,219,193,0.3);">
+                <svg viewBox="0 0 24 24" style="stroke: var(--teal);"><path d="M4 8l8-4 8 4v8l-8 4-8-4z"/><path d="M4 8l8 4 8-4M12 12v8"/></svg>
+              </div>
+              <div class="kicker label-caps c-teal">Automated Workflow</div>
+              <h3 class="h3">Smart library automation</h3>
+              <p class="desc">RFID labels, handheld inventory scanners, self-checkout kiosks, and anti-theft security gates engineered for zero-friction borrow &amp; return.</p>
+            </div>
+            <div class="mini-widget">
+              <div class="left">
+                <svg viewBox="0 0 24 24" style="stroke: var(--teal);"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 8v8M10 8v8M14 8h1M17 8v8"/></svg>
+                <div>
+                  <div class="title">RFID Kiosk + EAS Gate</div>
+                  <div class="sub c-teal">Instant Batch Scans</div>
+                </div>
+              </div>
+              <span class="tag c-teal">READY</span>
+            </div>
+          </article>
+
+          <article class="card bento-card">
+            <div class="top">
+              <div class="icon-box ico-orange" style="border:1px solid rgba(247,152,29,0.3);">
+                <svg viewBox="0 0 24 24" style="stroke: var(--orange);"><path d="M4 20V10h6v10M14 20V6h6v14"/><path d="M2 20h20M10 6h4"/></svg>
+              </div>
+              <div class="kicker label-caps c-orange">Robotic Logistics</div>
+              <h3 class="h3">Industrial and retail robots</h3>
+              <p class="desc">Automated guided vehicles (AGVs), robotic arms, and humanoid robots designed to haul, sort, and assist across production floors.</p>
+            </div>
+            <div class="mini-widget">
+              <div class="left">
+                <svg viewBox="0 0 24 24" style="stroke: var(--orange);"><rect x="4" y="11" width="16" height="7" rx="2"/><circle cx="8" cy="19" r="1.5"/><circle cx="16" cy="19" r="1.5"/><path d="M12 11V6l4-2"/></svg>
+                <div>
+                  <div class="title">AGV Unit &amp; Arm-X</div>
+                  <div class="sub c-orange">Payload: 500kg</div>
+                </div>
+              </div>
+              <span class="tag c-orange">AUTONOMOUS</span>
+            </div>
+          </article>
+
+          <article class="card bento-card">
+            <div class="top">
+              <div class="icon-box ico-coral" style="border:1px solid rgba(255,180,171,0.3);">
+                <svg viewBox="0 0 24 24" style="stroke: var(--coral);"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3"/><circle cx="12" cy="12" r="3"/></svg>
+              </div>
+              <div class="kicker label-caps c-coral" style="color: var(--coral);">Retail Vision</div>
+              <h3 class="h3">AR try-on systems</h3>
+              <p class="desc">Augmented reality try-on for retail, so customers can see a product on themselves before buying with precision spatial body mapping.</p>
+            </div>
+            <div class="mini-widget">
+              <div class="left">
+                <svg viewBox="0 0 24 24" style="stroke: var(--coral);"><circle cx="12" cy="12" r="8"/><path d="M12 4v16M4 12h16"/></svg>
+                <div>
+                  <div class="title">Mirror Screen Mesh</div>
+                  <div class="sub" style="color: var(--coral);">99.1% Fit Confidence</div>
+                </div>
+              </div>
+              <span class="tag" style="color: var(--coral);">REAL-TIME</span>
+            </div>
+          </article>
+        </div>
+
+        <div class="bento-bottom">
+          <article class="card bento-card bottom">
+            <div class="top">
+              <div class="head-row">
+                <div class="icon-box ico-amber" style="border:1px solid rgba(252,192,37,0.3);">
+                  <svg viewBox="0 0 24 24" style="stroke: var(--amber);"><path d="M6 4h12l3 5-9 11L3 9z"/><path d="M3 9h18M9 4l3 16 3-16"/></svg>
+                </div>
+                <span class="tag-pill" style="color: var(--amber); border-color: rgba(252,192,37,0.3); background: rgba(252,192,37,0.1);">PRECISION SCANNING</span>
+              </div>
+              <div class="kicker label-caps c-amber">Inventory Intelligence</div>
+              <h3 class="h3">RFID stock management</h3>
+              <p class="desc">Fast, accurate stock counting built specifically for jewelry shops and smart retail. Scan full trays in seconds without manual item handling.</p>
+            </div>
+            <div class="mini-widget">
+              <div class="left">
+                <svg viewBox="0 0 24 24" style="stroke: var(--text);"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg>
+                <div>
+                  <div class="title">Jewelry Tray Sensor Tray-08</div>
+                  <div class="sub c-amber">300 Items Scanned in 1.8s</div>
+                </div>
+              </div>
+              <span class="tag muted">ZERO MISSES</span>
+            </div>
+          </article>
+
+          <article class="card bento-card bottom">
+            <div class="top">
+              <div class="head-row">
+                <div class="icon-box ico-teal" style="border:1px solid rgba(94,219,193,0.3);">
+                  <svg viewBox="0 0 24 24" style="stroke: var(--teal);"><path d="M3 11l9-7 9 7v9H3z"/><path d="M9 20v-6h6v6"/></svg>
+                </div>
+                <span class="tag-pill" style="color: var(--teal); border-color: rgba(94,219,193,0.3); background: rgba(94,219,193,0.1);">UNIFIED PLATFORM</span>
+              </div>
+              <div class="kicker label-caps c-teal">Ambient Living &amp; Safety</div>
+              <h3 class="h3">Smart home automation</h3>
+              <p class="desc">Control lights, switches, curtains, door locks, gates, and water tank pumps from one mobile app. Add sensors and alarms for safety, and set daily routines that run on their own.</p>
+            </div>
+            <div class="mini-widget">
+              <div class="left">
+                <svg viewBox="0 0 24 24" style="stroke: var(--teal);"><path d="M12 3c3 4 6 7 6 11a6 6 0 0 1-12 0c0-4 3-7 6-11z"/></svg>
+                <div>
+                  <div class="title">Auto-Water Pump &amp; Smart Gate Sync</div>
+                  <div class="sub c-teal">Routines Active // Autonomous</div>
+                </div>
+              </div>
+              <span class="tag c-teal">100% RELIABLE</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SOLUTIONS ============ -->
+    <section class="section" id="solutions" style="padding-top: 40px;">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow" style="color: var(--teal);">
+            <span class="dot dot-teal"></span>
+            <span class="label-caps" style="color: var(--teal);">End-to-End Deployments</span>
+          </div>
+          <h2>Intelligent Automation Solutions</h2>
+          <p>Where we automate: every kind of space, one smart platform.</p>
+        </div>
+
+        <div class="blocks">
+
+          <section class="block" style="border-color: rgba(94,219,193,0.2);">
+            <div class="block-head">
+              <div class="num-badge" style="color: var(--teal); background: rgba(94,219,193,0.1); border: 1px solid rgba(94,219,193,0.4);">01</div>
+              <h3 class="block-title">Smart Building &amp; Facility Automation</h3>
+            </div>
+            <p class="block-desc">Complete hardware-to-cloud mesh linking sensors, automated valves, gates, and energy distributors across commercial, municipal, and residential properties.</p>
+            <dl class="sector-list">
+              <div>
+                <dt>Homes &amp; Stays</dt>
+                <dd>Houses, Villas, Apartments, Hotels, Resorts, Rental Buildings &amp; Hostels.</dd>
+              </div>
+              <div>
+                <dt>Healthcare &amp; Education</dt>
+                <dd>Hospitals, Healthcare Centres, Schools &amp; Educational Institutions.</dd>
+              </div>
+              <div>
+                <dt>Commercial &amp; Retail</dt>
+                <dd>Office Buildings, Shopping Malls, Retail Stores, Restaurants &amp; Hospitality.</dd>
+              </div>
+              <div>
+                <dt>Industrial &amp; Storage</dt>
+                <dd>Industrial Buildings, Factories, Warehouses &amp; Storage Facilities.</dd>
+              </div>
+            </dl>
+          </section>
+
+          <section class="block" style="border-color: rgba(247,152,29,0.2);">
+            <div class="block-head">
+              <div class="num-badge" style="color: var(--orange); background: rgba(247,152,29,0.1); border: 1px solid rgba(247,152,29,0.4);">02</div>
+              <h3 class="block-title">Stock Management Automation</h3>
+            </div>
+            <p class="block-desc">Turn tedious manual counts into instantaneous automated reconciliation. Track inventory at the unit level with sub-millimeter precision.</p>
+            <ul class="check-list">
+              <li>Real-time inventory tracking</li>
+              <li>Automatic low-stock alerts &amp; reordering</li>
+              <li>Barcode &amp; RFID scanning</li>
+              <li>Accurate reports &amp; demand forecasting</li>
+            </ul>
+          </section>
+
+          <section class="block" style="border-color: rgba(255,180,171,0.2);">
+            <div class="block-head">
+              <div class="num-badge" style="color: var(--coral); background: rgba(255,180,171,0.1); border: 1px solid rgba(255,180,171,0.4);">03</div>
+              <h3 class="block-title">Anti-Theft Solutions</h3>
+            </div>
+            <p class="block-desc">Protect your high-value inventory without compromising store aesthetics or smooth footfall. Discrete, uncompromised loss prevention.</p>
+            <ul class="check-list">
+              <li>AM &amp; RF anti-theft (EAS) systems</li>
+              <li>For jewellery, textile &amp; supermarkets</li>
+              <li>Factories, warehouses &amp; more</li>
+              <li>Various types of security tags</li>
+            </ul>
+          </section>
+
+          <section class="block" style="border-color: rgba(252,192,37,0.2);">
+            <div class="block-head">
+              <div class="num-badge" style="color: var(--amber); background: rgba(252,192,37,0.1); border: 1px solid rgba(252,192,37,0.4);">04</div>
+              <div>
+                <h3 class="block-title">Smart Try-On + AI Sizing Mirrors</h3>
+                <div class="label-caps" style="color: var(--amber); font-size: 11px; letter-spacing: 0.55px; margin-top: 6px;">For clothing and jewellery</div>
+              </div>
+            </div>
+            <p class="block-desc">Transform dressing rooms and jewelry counters into interactive sales drivers. Eliminates try-on queues while driving up basket conversions.</p>
+            <ul class="check-list">
+              <li>AI size suggestion in seconds</li>
+              <li>Virtual try-on for outfits and jewellery</li>
+              <li>Buy with confidence</li>
+            </ul>
+          </section>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ HOW WE WORK ============ -->
+    <section class="section" id="how-we-work" style="padding-top: 40px;">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow" style="color: var(--teal);">
+            <span class="dot dot-teal" style="width:6px;height:6px;"></span>
+            <span class="label-caps" style="color: var(--teal);">The Methodology</span>
+          </div>
+          <h2>How we work</h2>
+          <p>Every project follows the same four steps, so you always know what comes next.</p>
+        </div>
+
+        <div class="steps">
+          <article class="card step">
+            <div>
+              <div class="step-top">
+                <span class="step-num" style="color: var(--orange-light); background: rgba(247,152,29,0.1); border: 1px solid rgba(247,152,29,0.3);">1</span>
+                <svg viewBox="0 0 24 24"><path d="M6 18c0-3 2-4 2-7a2 2 0 0 0-4 0M14 18c0-3 2-4 2-7a2 2 0 0 0-4 0"/></svg>
+              </div>
+              <h3 style="margin-top: 22px;">01 / Walk the floor</h3>
+              <p>We visit your site and learn how the work is done today.</p>
+            </div>
+            <div class="stage" style="color: var(--orange-light);">Stage 1: Observation</div>
+          </article>
+
+          <article class="card step">
+            <div>
+              <div class="step-top">
+                <span class="step-num" style="color: var(--teal); background: rgba(94,219,193,0.1); border: 1px solid rgba(94,219,193,0.3);">2</span>
+                <svg viewBox="0 0 24 24"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 2 3h10a2 2 0 0 0 2-3l-5-9V3"/></svg>
+              </div>
+              <h3 style="margin-top: 22px;">02 / Prove it</h3>
+              <p>A small test in your real setting shows what works before you commit.</p>
+            </div>
+            <div class="stage" style="color: var(--teal);">Stage 2: Pilot Testing</div>
+          </article>
+
+          <article class="card step">
+            <div>
+              <div class="step-top">
+                <span class="step-num" style="color: var(--amber); background: rgba(252,192,37,0.1); border: 1px solid rgba(252,192,37,0.3);">3</span>
+                <svg viewBox="0 0 24 24"><path d="M14 4l6 6-3 3-6-6zM3 21l7-7M7 14l-3 3 3 3 3-3"/></svg>
+              </div>
+              <h3 style="margin-top: 22px;">03 / Build and install</h3>
+              <p>We build the system and set it up on site.</p>
+            </div>
+            <div class="stage" style="color: var(--amber);">Stage 3: Integration</div>
+          </article>
+
+          <article class="card step">
+            <div>
+              <div class="step-top">
+                <span class="step-num" style="color: var(--teal); background: rgba(125,247,221,0.1); border: 1px solid rgba(125,247,221,0.3);">4</span>
+                <svg viewBox="0 0 24 24"><path d="M3 16a9 9 0 0 1 18 0"/><path d="M12 16l4-4"/><circle cx="12" cy="16" r="1.5"/></svg>
+              </div>
+              <h3 style="margin-top: 22px;">04 / Support</h3>
+              <p>Training and help from the team that built it.</p>
+            </div>
+            <div class="stage" style="color: var(--teal);">Stage 4: Continuous Ops</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="foot-top">
+        <div class="foot-brand">
+          <h3>Z² Robotics (Z Square Robotics)</h3>
+          <p>Theni, Tamil Nadu, India.</p>
+          <div class="tag">SMARTER SPACES • SAFER ASSETS • BETTER CONTROL</div>
+        </div>
+        <nav class="foot-links" aria-label="Footer">
+          <a href="index.html">Home</a>
+          <a href="services.html" class="active">Services</a>
+          <a href="about.html">About Us</a>
+          <a href="index.html#contact">Contact</a>
+        </nav>
+      </div>
+      <div class="foot-divider"></div>
+      <div class="foot-bottom">
+        <span>© 2026 Z² Robotics. All Rights Reserved. Precision Autonomous Systems.</span>
+        <span class="status">
+          <span><span class="dot dot-teal"></span>Telemetry Online</span>
+          <span>Theni Systems Hub</span>
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var toggle = document.getElementById("menuToggle");
+      var mobileNav = document.getElementById("mobileNav");
+
+      function setMenu(open) {
+        mobileNav.classList.toggle("open", open);
+        toggle.setAttribute("aria-expanded", open ? "true" : "false");
+        toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+      }
+
+      toggle.addEventListener("click", function (event) {
+        event.stopPropagation();
+        setMenu(!mobileNav.classList.contains("open"));
+      });
+
+      document.addEventListener("click", function (event) {
+        if (!mobileNav.contains(event.target) && event.target !== toggle) setMenu(false);
+      });
+
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") setMenu(false);
+      });
+
+      mobileNav.querySelectorAll("a").forEach(function (link) {
+        link.addEventListener("click", function () { setMenu(false); });
+      });
+    })();
+  </script>
+</body>
+</html>
